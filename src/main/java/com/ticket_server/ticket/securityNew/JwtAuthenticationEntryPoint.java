@@ -1,4 +1,4 @@
-package com.ticket_server.ticket.SecurityNew;
+package com.ticket_server.ticket.securityNew;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

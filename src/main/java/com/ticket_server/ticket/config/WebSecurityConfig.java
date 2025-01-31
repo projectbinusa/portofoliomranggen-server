@@ -1,7 +1,7 @@
-package com.ticket_server.ticket.Config;
+package com.ticket_server.ticket.config;
 
-import com.ticket_server.ticket.SecurityNew.JwtAuthenticationEntryPoint;
-import com.ticket_server.ticket.SecurityNew.JwtRequestFilter;
+import com.ticket_server.ticket.securityNew.JwtAuthenticationEntryPoint;
+import com.ticket_server.ticket.securityNew.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
