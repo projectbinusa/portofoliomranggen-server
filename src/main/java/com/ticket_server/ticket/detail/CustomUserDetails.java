@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CustomAdminDetails implements UserDetailsService {
+public class CustomUserDetails implements UserDetailsService {
 
     @Autowired
     AdminRepository adminRepository;

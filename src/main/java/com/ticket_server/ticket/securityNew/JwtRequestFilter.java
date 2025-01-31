@@ -1,6 +1,6 @@
 package com.ticket_server.ticket.securityNew;
 
-import com.ticket_server.ticket.detail.CustomAdminDetails;
+import com.ticket_server.ticket.detail.CustomUserDetails;
 import com.ticket_server.ticket.repository.AdminRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private AdminRepository adminRepository;
 
     @Autowired
-    private CustomAdminDetails customAdminDetails;
+    private CustomUserDetails customAdminDetails;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
