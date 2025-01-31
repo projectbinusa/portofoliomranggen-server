@@ -1,4 +1,4 @@
-package com.ticket_server.ticket.Config;
+package com.ticket_server.ticket.config;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

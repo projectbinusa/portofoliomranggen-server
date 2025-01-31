@@ -1,4 +1,4 @@
-package com.ticket_server.ticket.SecurityNew;
+package com.ticket_server.ticket.securityNew;
 
 
 import com.ticket_server.ticket.detail.AdminDetail;
