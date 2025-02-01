@@ -34,11 +34,11 @@ public class SiswaImpl implements SiswaService {
         Siswa siswa = new Siswa();
         siswa.setNama(siswaDTO.getNama());
         siswa.setNisn(siswaDTO.getNisn());
-        siswa.setAlamat(siswaDTO.getAlamat());
+        siswa.setTempatTinggal(siswaDTO.getTempatTinggal());
         siswa.setNamaOrangtua(siswaDTO.getNamaOrangtua());
         siswa.setNomerHpOrangtua(siswaDTO.getNomerHpOrangtua());
         siswa.setNomerHp(siswaDTO.getNomerHp());
-        siswa.setTtl(siswaDTO.getTtl());
+        siswa.setTanggalLahir(siswaDTO.getTanggalLahir());
 
         Siswa savedSiswa = siswaRepository.save(siswa);
 
@@ -46,11 +46,11 @@ public class SiswaImpl implements SiswaService {
         result.setId(savedSiswa.getId());
         result.setNama(savedSiswa.getNama());
         result.setNisn(savedSiswa.getNisn());
-        result.setAlamat(savedSiswa.getAlamat());
+        result.setTempatTinggal(savedSiswa.getTempatTinggal());
         result.setNamaOrangtua(savedSiswa.getNamaOrangtua());
         result.setNomerHpOrangtua(savedSiswa.getNomerHpOrangtua());
         result.setNomerHp(savedSiswa.getNomerHp());
-        result.setTtl(savedSiswa.getTtl());
+        result.setTanggalLahir(savedSiswa.getTanggalLahir());
 
         return result;
     }
@@ -62,11 +62,11 @@ public class SiswaImpl implements SiswaService {
 
         existingSiswa.setNama(siswaDTO.getNama());
         existingSiswa.setNisn(siswaDTO.getNisn());
-        existingSiswa.setAlamat(siswaDTO.getAlamat());
+        existingSiswa.setTempatTinggal(siswaDTO.getTempatTinggal());
         existingSiswa.setNamaOrangtua(siswaDTO.getNamaOrangtua());
         existingSiswa.setNomerHpOrangtua(siswaDTO.getNomerHpOrangtua());
         existingSiswa.setNomerHp(siswaDTO.getNomerHp());
-        existingSiswa.setTtl(siswaDTO.getTtl());
+        existingSiswa.setTanggalLahir(siswaDTO.getTanggalLahir());
 
         Siswa updatedSiswa = siswaRepository.save(existingSiswa);
 
@@ -74,11 +74,11 @@ public class SiswaImpl implements SiswaService {
         result.setId(updatedSiswa.getId());
         result.setNama(updatedSiswa.getNama());
         result.setNisn(updatedSiswa.getNisn());
-        result.setAlamat(updatedSiswa.getAlamat());
+        result.setTempatTinggal(updatedSiswa.getTempatTinggal());
         result.setNamaOrangtua(updatedSiswa.getNamaOrangtua());
         result.setNomerHpOrangtua(updatedSiswa.getNomerHpOrangtua());
         result.setNomerHp(updatedSiswa.getNomerHp());
-        result.setTtl(updatedSiswa.getTtl());
+        result.setTanggalLahir(updatedSiswa.getTanggalLahir());
 
         return result;
     }
