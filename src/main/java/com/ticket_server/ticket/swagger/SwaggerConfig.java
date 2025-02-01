@@ -1,6 +1,5 @@
-package com.ticket_server.ticket.Swagger;
+package com.ticket_server.ticket.swagger;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
