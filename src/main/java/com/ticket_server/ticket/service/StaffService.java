@@ -10,7 +10,6 @@ import java.util.Optional;
 
 public interface StaffService {
     List<Staff> getAllStaff();
-
     Optional<Staff> getStaffById(Long id);
 
     StaffDTO tambahStaff(StaffDTO staffDTO);
@@ -19,11 +18,7 @@ public interface StaffService {
 
     StaffDTO editStaff(Long id, String staffJson, MultipartFile file) throws IOException;
 
-//    String uploadFoto(MultipartFile file) throws IOException;
-
     StaffDTO tambahStaffDTO(StaffDTO staffDTO);
-
-    StaffDTO editStaffDTO(Long id, StaffDTO staffDTO);
-
-    void deleteStaff(Long id);
+    StaffDTO editStaffDTO(Long id, StaffDTO staffDTO) throws IOException;
+    void deleteStaff(Long id) throws IOException;
 }
