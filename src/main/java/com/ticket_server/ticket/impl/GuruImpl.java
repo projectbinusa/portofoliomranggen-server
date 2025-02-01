@@ -46,10 +46,16 @@ public class GuruImpl implements GuruService {
     @Override
     public GuruDTO tambahGuruDTO(Long idAdmin, GuruDTO guruDTO) {
         Admin admin = adminRepository.findById(idAdmin)
-                .orElseThrow(() -> new NotFoundException("Admin not found"));
+                .orElseThrow(() -> new NotFoundException("Admin tidak ditemukan"));
 
-        Guru guru = objectMapper.convertValue(guruDTO, Guru.class);
+        Guru guru = new Guru();
         guru.setAdmin(admin);
+        guru.setNamaGuru(guruDTO.getNamaGuru());
+        guru.setNip(guruDTO.getNip());
+        guru.setAlamat(guruDTO.getAlamat());
+        guru.setNomerHp(guruDTO.getNomerHp());
+        guru.setTahunDiterima(guruDTO.getTahunDiterima());
+        guru.setLamaKerja(guruDTO.getLamaKerja());
 
         Guru savedGuru = guruRepository.save(guru);
         return objectMapper.convertValue(savedGuru, GuruDTO.class);
@@ -67,12 +73,11 @@ public class GuruImpl implements GuruService {
 
         guru.setAdmin(admin);
         guru.setNamaGuru(guruDTO.getNamaGuru());
-        guru.setHargaGuru(guruDTO.getHargaGuru());
-
-        if (file != null) {
-            String base64Image = new String(file.getBytes());
-            guru.setFotoUrl(base64Image);
-        }
+        guru.setNip(guruDTO.getNip());
+        guru.setAlamat(guruDTO.getAlamat());
+        guru.setNomerHp(guruDTO.getNomerHp());
+        guru.setTahunDiterima(guruDTO.getTahunDiterima());
+        guru.setLamaKerja(guruDTO.getLamaKerja());
 
         Guru updatedGuru = guruRepository.save(guru);
         return objectMapper.convertValue(updatedGuru, GuruDTO.class);
@@ -80,6 +85,9 @@ public class GuruImpl implements GuruService {
 
     @Override
     public void deleteGuru(Long id) throws IOException {
+        if (!guruRepository.existsById(id)) {
+            throw new NotFoundException("Guru tidak ditemukan");
+        }
         guruRepository.deleteById(id);
     }
 }
