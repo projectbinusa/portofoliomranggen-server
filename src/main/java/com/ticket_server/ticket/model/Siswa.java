@@ -14,35 +14,35 @@ public class Siswa {
     private String nama;
 
     @Column(name = "nisn", unique = true, nullable = false)
-    private String nisn;
+    private Long nisn; // Ubah dari String ke Long
 
-    @Column(name = "alamat", nullable = false)
-    private String alamat;
+    @Column(name = "tempat_tinggal", nullable = false) // Ganti alamat dengan tempat_tinggal
+    private String tempatTinggal;
 
     @Column(name = "nama_orangtua", nullable = false)
     private String namaOrangtua;
 
     @Column(name = "nomer_hp_orangtua", nullable = false)
-    private String nomerHpOrangtua;
+    private Long nomerHpOrangtua; // Ubah dari String ke Long
 
     @Column(name = "nomer_hp", nullable = false)
-    private String nomerHp;
+    private Long nomerHp; // Ubah dari String ke Long
 
-    @Column(name = "ttl", nullable = false)
-    private String ttl; // Tempat Tanggal Lahir
+    @Column(name = "tanggal_lahir", nullable = false) // Ganti ttl dengan tanggal_lahir
+    private String tanggalLahir;
 
     // Constructors
     public Siswa() {}
 
-    public Siswa(Long id, String nama, String nisn, String alamat, String namaOrangtua, String nomerHpOrangtua, String nomerHp, String ttl) {
+    public Siswa(Long id, String nama, Long nisn, String tempatTinggal, String namaOrangtua, Long nomerHpOrangtua, Long nomerHp, String tanggalLahir) {
         this.id = id;
         this.nama = nama;
         this.nisn = nisn;
-        this.alamat = alamat;
+        this.tempatTinggal = tempatTinggal;
         this.namaOrangtua = namaOrangtua;
         this.nomerHpOrangtua = nomerHpOrangtua;
         this.nomerHp = nomerHp;
-        this.ttl = ttl;
+        this.tanggalLahir = tanggalLahir;
     }
 
     // Getters and Setters
@@ -62,20 +62,20 @@ public class Siswa {
         this.nama = nama;
     }
 
-    public String getNisn() {
+    public Long getNisn() {
         return nisn;
     }
 
-    public void setNisn(String nisn) {
+    public void setNisn(Long nisn) {
         this.nisn = nisn;
     }
 
-    public String getAlamat() {
-        return alamat;
+    public String getTempatTinggal() {
+        return tempatTinggal;
     }
 
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
+    public void setTempatTinggal(String tempatTinggal) {
+        this.tempatTinggal = tempatTinggal;
     }
 
     public String getNamaOrangtua() {
@@ -86,27 +86,27 @@ public class Siswa {
         this.namaOrangtua = namaOrangtua;
     }
 
-    public String getNomerHpOrangtua() {
+    public Long getNomerHpOrangtua() {
         return nomerHpOrangtua;
     }
 
-    public void setNomerHpOrangtua(String nomerHpOrangtua) {
+    public void setNomerHpOrangtua(Long nomerHpOrangtua) {
         this.nomerHpOrangtua = nomerHpOrangtua;
     }
 
-    public String getNomerHp() {
+    public Long getNomerHp() {
         return nomerHp;
     }
 
-    public void setNomerHp(String nomerHp) {
+    public void setNomerHp(Long nomerHp) {
         this.nomerHp = nomerHp;
     }
 
-    public String getTtl() {
-        return ttl;
+    public String getTanggalLahir() {
+        return tanggalLahir;
     }
 
-    public void setTtl(String ttl) {
-        this.ttl = ttl;
+    public void setTanggalLahir(String tanggalLahir) {
+        this.tanggalLahir = tanggalLahir;
     }
 }

@@ -3,12 +3,12 @@ package com.ticket_server.ticket.DTO;
 public class SiswaDTO {
     private Long id;
     private String nama;
-    private String nisn;
-    private String alamat;
+    private Long nisn; // Ubah dari String ke Long
+    private String tempatTinggal; // Ganti alamat dengan tempatTinggal
     private String namaOrangtua;
-    private String nomerHpOrangtua;
-    private String nomerHp;
-    private String ttl;
+    private Long nomerHpOrangtua; // Ubah dari String ke Long
+    private Long nomerHp; // Ubah dari String ke Long
+    private String tanggalLahir; // Ganti ttl dengan tanggalLahir
 
     // Getters and Setters
     public Long getId() {
@@ -27,20 +27,20 @@ public class SiswaDTO {
         this.nama = nama;
     }
 
-    public String getNisn() {
+    public Long getNisn() {
         return nisn;
     }
 
-    public void setNisn(String nisn) {
+    public void setNisn(Long nisn) {
         this.nisn = nisn;
     }
 
-    public String getAlamat() {
-        return alamat;
+    public String getTempatTinggal() {
+        return tempatTinggal;
     }
 
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
+    public void setTempatTinggal(String tempatTinggal) {
+        this.tempatTinggal = tempatTinggal;
     }
 
     public String getNamaOrangtua() {
@@ -51,27 +51,27 @@ public class SiswaDTO {
         this.namaOrangtua = namaOrangtua;
     }
 
-    public String getNomerHpOrangtua() {
+    public Long getNomerHpOrangtua() {
         return nomerHpOrangtua;
     }
 
-    public void setNomerHpOrangtua(String nomerHpOrangtua) {
+    public void setNomerHpOrangtua(Long nomerHpOrangtua) {
         this.nomerHpOrangtua = nomerHpOrangtua;
     }
 
-    public String getNomerHp() {
+    public Long getNomerHp() {
         return nomerHp;
     }
 
-    public void setNomerHp(String nomerHp) {
+    public void setNomerHp(Long nomerHp) {
         this.nomerHp = nomerHp;
     }
 
-    public String getTtl() {
-        return ttl;
+    public String getTanggalLahir() {
+        return tanggalLahir;
     }
 
-    public void setTtl(String ttl) {
-        this.ttl = ttl;
+    public void setTanggalLahir(String tanggalLahir) {
+        this.tanggalLahir = tanggalLahir;
     }
 }
