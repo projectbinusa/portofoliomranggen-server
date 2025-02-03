@@ -7,40 +7,43 @@ import com.ticket_server.ticket.model.Guru;
 import com.ticket_server.ticket.repository.AdminRepository;
 import com.ticket_server.ticket.repository.GuruRepository;
 import com.ticket_server.ticket.service.GuruService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class GuruImpl implements GuruService {
 
     private final GuruRepository guruRepository;
     private final AdminRepository adminRepository;
-    private final ObjectMapper objectMapper;
 
-    public GuruImpl(GuruRepository guruRepository, AdminRepository adminRepository, ObjectMapper objectMapper) {
+    public GuruImpl(GuruRepository guruRepository, AdminRepository adminRepository) {
         this.guruRepository = guruRepository;
         this.adminRepository = adminRepository;
-        this.objectMapper = objectMapper;
     }
 
     @Override
-    public List<Guru> getAllGuru() {
-        return guruRepository.findAll();
+    public List<GuruDTO> getAllGuru() {
+        return guruRepository.findAll().stream()
+                .map(GuruDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Guru> getAllByAdmin(Long idAdmin) {
-        return guruRepository.findByAdminId(idAdmin);
+    public List<GuruDTO> getAllByAdmin(Long idAdmin) {
+        return guruRepository.findByAdminId(idAdmin).stream()
+                .map(GuruDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Guru> getGuruById(Long id) {
-        return guruRepository.findById(id);
+    public GuruDTO getGuruById(Long id) {
+        Guru guru = guruRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Guru tidak ditemukan"));
+        return new GuruDTO(guru);
     }
 
     @Override
@@ -58,18 +61,16 @@ public class GuruImpl implements GuruService {
         guru.setLamaKerja(guruDTO.getLamaKerja());
 
         Guru savedGuru = guruRepository.save(guru);
-        return objectMapper.convertValue(savedGuru, GuruDTO.class);
+        return new GuruDTO(savedGuru);
     }
 
     @Override
-    public GuruDTO editGuruDTO(Long id, Long idAdmin, String guruJson, MultipartFile file) throws IOException {
+    public GuruDTO editGuruDTO(Long id, Long idAdmin, GuruDTO guruDTO) {
         Guru guru = guruRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Guru tidak ditemukan"));
 
         Admin admin = adminRepository.findById(idAdmin)
                 .orElseThrow(() -> new NotFoundException("Admin tidak ditemukan"));
-
-        GuruDTO guruDTO = objectMapper.readValue(guruJson, GuruDTO.class);
 
         guru.setAdmin(admin);
         guru.setNamaGuru(guruDTO.getNamaGuru());
@@ -80,11 +81,11 @@ public class GuruImpl implements GuruService {
         guru.setLamaKerja(guruDTO.getLamaKerja());
 
         Guru updatedGuru = guruRepository.save(guru);
-        return objectMapper.convertValue(updatedGuru, GuruDTO.class);
+        return new GuruDTO(updatedGuru);
     }
 
     @Override
-    public void deleteGuru(Long id) throws IOException {
+    public void deleteGuru(Long id) {
         if (!guruRepository.existsById(id)) {
             throw new NotFoundException("Guru tidak ditemukan");
         }
