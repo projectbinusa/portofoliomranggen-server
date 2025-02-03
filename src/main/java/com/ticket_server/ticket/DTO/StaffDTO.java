@@ -1,5 +1,6 @@
 package com.ticket_server.ticket.DTO;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class StaffDTO {
@@ -9,7 +10,7 @@ public class StaffDTO {
     private String noTelepon;
     private String awalBekerja;
     private String lamaKerja;
-    private LocalDateTime createDate;
+    private LocalDate createDate;
 
     // Getters and Setters
     public Long getId() {return id;}
@@ -36,8 +37,8 @@ public class StaffDTO {
 
     public void setLamaKerja(String lamaKerja) {this.lamaKerja = lamaKerja;}
 
-    public LocalDateTime getCreateDate() {return createDate;}
+    public LocalDate getCreateDate() {return createDate;}
 
-    public void setCreateDate(LocalDateTime createDate) {this.createDate = createDate;}
+    public void setCreateDate(LocalDate createDate) {this.createDate = createDate;}
 
 }

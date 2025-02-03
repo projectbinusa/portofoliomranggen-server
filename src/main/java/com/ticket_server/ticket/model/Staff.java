@@ -1,7 +1,7 @@
 package com.ticket_server.ticket.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "staff")
@@ -27,12 +27,12 @@ public class Staff {
     private String lamaKerja;
 
     @Column(name = "create_Date", nullable = false)
-    private LocalDateTime createDate;
+    private LocalDate createDate;
 
     public Staff() {
     }
 
-    public Staff(Long id, String nama, String alamat, String noTelepon, String awalBekerja, String lamaKerja, LocalDateTime createDate) {
+    public Staff(Long id, String nama, String alamat, String noTelepon, String awalBekerja, String lamaKerja, LocalDate createDate) {
         this.id = id;
         this.nama = nama;
         this.alamat = alamat;
@@ -66,7 +66,7 @@ public class Staff {
 
     public void setLamaKerja(String lamaKerja) {this.lamaKerja = lamaKerja;}
 
-    public LocalDateTime getCreateDate() {return createDate;}
+    public LocalDate getCreateDate() {return createDate;}
 
-    public void setCreateDate(LocalDateTime createDate) {this.createDate = createDate;}
+    public void setCreateDate(LocalDate createDate) {this.createDate = createDate;}
 }
