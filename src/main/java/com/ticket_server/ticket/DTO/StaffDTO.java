@@ -1,6 +1,6 @@
 package com.ticket_server.ticket.DTO;
 
-import javax.persistence.PrePersist;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class StaffDTO {
@@ -10,75 +10,35 @@ public class StaffDTO {
     private String noTelepon;
     private String awalBekerja;
     private String lamaKerja;
-    private LocalDateTime createDate;
+    private LocalDate createDate;
 
-    @PrePersist
-    public void onPrePersist() {
-        createDate = LocalDateTime.now();
-    }
-//    private String fotoUrl;
+    // Getters and Setters
+    public Long getId() {return id;}
 
-    public Long getId() {
-        return id;
-    }
+    public void setId(Long id) {this.id = id;}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getNama() {return nama;}
 
-    public String getNama() {
-        return nama;
-    }
+    public void setNama(String nama) {this.nama = nama;}
 
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
+    public String getAlamat() {return alamat;}
 
-    public String getAlamat() {
-        return alamat;
-    }
+    public void setAlamat(String alamat) {this.alamat = alamat;}
 
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
-    }
+    public String getNoTelepon() {return noTelepon;}
 
-    public String getnoTelepon() {
-        return noTelepon;
-    }
+    public void setNoTelepon(String noTelepon) {this.noTelepon = noTelepon;}
 
-    public void setnoTelepon(String noTelepon) {
-        this.noTelepon = noTelepon;
-    }
+    public String getAwalBekerja() {return awalBekerja;}
 
-    public String getAwalBekerja() {
-        return awalBekerja;
-    }
+    public void setAwalBekerja(String awalBekerja) {this.awalBekerja = awalBekerja;}
 
-    public void setAwalBekerja(String AwalBekerja) {
-        this.awalBekerja = AwalBekerja;
-    }
+    public String getLamaKerja() {return lamaKerja;}
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
+    public void setLamaKerja(String lamaKerja) {this.lamaKerja = lamaKerja;}
 
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
+    public LocalDate getCreateDate() {return createDate;}
 
-    public String getLamaKerja() {
-        return lamaKerja;
-    }
+    public void setCreateDate(LocalDate createDate) {this.createDate = createDate;}
 
-    public void setLamaKerja(String lamaKerja) {
-        this.lamaKerja = lamaKerja;
-    }
-
-//    public String getFotoUrl() {
-//        return fotoUrl;
-//    }
-//
-//    public void setFotoUrl(String fotoUrl) {
-//        this.fotoUrl = fotoUrl;
-//    }
 }

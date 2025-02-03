@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,9 +50,9 @@ public class StaffImpl implements StaffService {
         Staff staff = new Staff();
         staff.setNama(staffDTO.getNama());
         staff.setAlamat(staffDTO.getAlamat());
-        staff.setNoTelepon(staffDTO.getnoTelepon());
+        staff.setNoTelepon(staffDTO.getNoTelepon());
         staff.setAwalBekerja(staffDTO.getAwalBekerja());
-        staff.setLamaKerja(staffDTO.getAwalBekerja());
+        staff.setLamaKerja(staffDTO.getLamaKerja());
         staff.setCreateDate(staffDTO.getCreateDate());
 
         Staff savedStaff = staffRepository.save(staff);
@@ -62,7 +61,7 @@ public class StaffImpl implements StaffService {
         result.setId(savedStaff.getId());
         result.setNama(savedStaff.getNama());
         result.setAlamat(savedStaff.getAlamat());
-        result.setnoTelepon(savedStaff.getNoTelepon());
+        result.setNoTelepon(savedStaff.getNoTelepon());
         result.setAwalBekerja(savedStaff.getAwalBekerja());
         result.setLamaKerja(savedStaff.getLamaKerja());
         result.setCreateDate(savedStaff.getCreateDate());
@@ -73,13 +72,13 @@ public class StaffImpl implements StaffService {
     @Override
     public StaffDTO editStaffDTO(Long id, StaffDTO staffDTO) {
         Staff existingStaff = staffRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Staff with ID " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Staff tidak ditemukan"));
 
         existingStaff.setNama(staffDTO.getNama());
         existingStaff.setAlamat(staffDTO.getAlamat());
-        existingStaff.setNoTelepon(staffDTO.getnoTelepon());
+        existingStaff.setNoTelepon(staffDTO.getNoTelepon());
         existingStaff.setAwalBekerja(staffDTO.getAwalBekerja());
-        existingStaff.setLamaKerja(staffDTO.getAwalBekerja());
+        existingStaff.setLamaKerja(staffDTO.getLamaKerja());
         existingStaff.setCreateDate(staffDTO.getCreateDate());
 
         Staff updatedStaff = staffRepository.save(existingStaff);
@@ -88,7 +87,7 @@ public class StaffImpl implements StaffService {
         result.setId(updatedStaff.getId());
         result.setNama(updatedStaff.getNama());
         result.setAlamat(updatedStaff.getAlamat());
-        result.setnoTelepon(updatedStaff.getNoTelepon());
+        result.setNoTelepon(updatedStaff.getNoTelepon());
         result.setAwalBekerja(updatedStaff.getAwalBekerja());
         result.setLamaKerja(updatedStaff.getLamaKerja());
         result.setCreateDate(updatedStaff.getCreateDate());
@@ -98,11 +97,9 @@ public class StaffImpl implements StaffService {
 
     @Override
     public void deleteStaff(Long id) {
+        if (!staffRepository.existsById(id)) {
+            throw new NotFoundException("Staff tidak ditemukan");
+        }
         staffRepository.deleteById(id);
-    }
-
-    // Helper method untuk menghitung lama kerja
-    private int calculateLamaKerja(LocalDate awalBekerja) {
-        return LocalDate.now().getYear() - awalBekerja.getYear();
     }
 }

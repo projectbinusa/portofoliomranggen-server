@@ -1,7 +1,7 @@
 package com.ticket_server.ticket.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "staff")
@@ -27,12 +27,12 @@ public class Staff {
     private String lamaKerja;
 
     @Column(name = "create_Date", nullable = false)
-    private LocalDateTime createDate;
+    private LocalDate createDate;
 
     public Staff() {
     }
 
-    public Staff(Long id, String nama, String alamat, String noTelepon, String awalBekerja, String lamaKerja, LocalDateTime createDate) {
+    public Staff(Long id, String nama, String alamat, String noTelepon, String awalBekerja, String lamaKerja, LocalDate createDate) {
         this.id = id;
         this.nama = nama;
         this.alamat = alamat;
@@ -42,59 +42,31 @@ public class Staff {
         this.createDate = createDate;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() {return id;}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) {this.id = id;}
 
-    public String getNama() {
-        return nama;
-    }
+    public String getNama() {return nama;}
 
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
+    public void setNama(String nama) {this.nama = nama;}
 
-    public String getAlamat() {
-        return alamat;
-    }
+    public String getAlamat() {return alamat;}
 
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
-    }
+    public void setAlamat(String alamat) {this.alamat = alamat;}
 
-    public String getNoTelepon() {
-        return noTelepon;
-    }
+    public String getNoTelepon() {return noTelepon;}
 
-    public void setNoTelepon(String noTelepon) {
-        this.noTelepon = noTelepon;
-    }
+    public void setNoTelepon(String noTelepon) {this.noTelepon = noTelepon;}
 
     public String getAwalBekerja() {
-        return awalBekerja;
-    }
+        return awalBekerja;}
+    public void setAwalBekerja(String awalBekerja) {this.awalBekerja = awalBekerja;}
 
-    public void setAwalBekerja(String awalBekerja) {
-        this.awalBekerja = awalBekerja;
-    }
+    public String getLamaKerja() {return lamaKerja;}
 
-    public String getLamaKerja() {
-        return lamaKerja;
-    }
+    public void setLamaKerja(String lamaKerja) {this.lamaKerja = lamaKerja;}
 
-    public void setLamaKerja(String lamaKerja) {
-        this.lamaKerja = lamaKerja;
-    }
+    public LocalDate getCreateDate() {return createDate;}
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
+    public void setCreateDate(LocalDate createDate) {this.createDate = createDate;}
 }
