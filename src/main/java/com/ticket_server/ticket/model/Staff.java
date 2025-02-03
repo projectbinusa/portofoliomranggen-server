@@ -42,59 +42,31 @@ public class Staff {
         this.createDate = createDate;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() {return id;}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) {this.id = id;}
 
-    public String getNama() {
-        return nama;
-    }
+    public String getNama() {return nama;}
 
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
+    public void setNama(String nama) {this.nama = nama;}
 
-    public String getAlamat() {
-        return alamat;
-    }
+    public String getAlamat() {return alamat;}
 
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
-    }
+    public void setAlamat(String alamat) {this.alamat = alamat;}
 
-    public String getNoTelepon() {
-        return noTelepon;
-    }
+    public String getNoTelepon() {return noTelepon;}
 
-    public void setNoTelepon(String noTelepon) {
-        this.noTelepon = noTelepon;
-    }
+    public void setNoTelepon(String noTelepon) {this.noTelepon = noTelepon;}
 
     public String getAwalBekerja() {
-        return awalBekerja;
-    }
+        return awalBekerja;}
+    public void setAwalBekerja(String awalBekerja) {this.awalBekerja = awalBekerja;}
 
-    public void setAwalBekerja(String awalBekerja) {
-        this.awalBekerja = awalBekerja;
-    }
+    public String getLamaKerja() {return lamaKerja;}
 
-    public String getLamaKerja() {
-        return lamaKerja;
-    }
+    public void setLamaKerja(String lamaKerja) {this.lamaKerja = lamaKerja;}
 
-    public void setLamaKerja(String lamaKerja) {
-        this.lamaKerja = lamaKerja;
-    }
+    public LocalDateTime getCreateDate() {return createDate;}
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
+    public void setCreateDate(LocalDateTime createDate) {this.createDate = createDate;}
 }

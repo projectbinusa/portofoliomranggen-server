@@ -36,11 +36,11 @@ public class SiswaController {
             siswaDTO.setId(siswaEntity.getId());
             siswaDTO.setNama(siswaEntity.getNama());
             siswaDTO.setNisn(siswaEntity.getNisn());
-            siswaDTO.setAlamat(siswaEntity.getAlamat());
+            siswaDTO.setTempatTinggal(siswaEntity.getTempatTinggal());
             siswaDTO.setNamaOrangtua(siswaEntity.getNamaOrangtua());
             siswaDTO.setNomerHpOrangtua(siswaEntity.getNomerHpOrangtua());
             siswaDTO.setNomerHp(siswaEntity.getNomerHp());
-            siswaDTO.setTtl(siswaEntity.getTtl());
+            siswaDTO.setTanggalLahir(siswaEntity.getTanggalLahir());
             return ResponseEntity.ok(siswaDTO);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
