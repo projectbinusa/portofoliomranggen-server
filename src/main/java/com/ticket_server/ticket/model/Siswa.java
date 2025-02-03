@@ -14,36 +14,22 @@ public class Siswa {
     private String nama;
 
     @Column(name = "nisn", unique = true, nullable = false)
-    private Long nisn; // Ubah dari String ke Long
+    private Long nisn;
 
-    @Column(name = "tempat_tinggal", nullable = false) // Ganti alamat dengan tempat_tinggal
+    @Column(name = "tempat_tinggal", nullable = false)
     private String tempatTinggal;
 
     @Column(name = "nama_orangtua", nullable = false)
     private String namaOrangtua;
 
     @Column(name = "nomer_hp_orangtua", nullable = false)
-    private Long nomerHpOrangtua; // Ubah dari String ke Long
+    private Long nomerHpOrangtua;
 
     @Column(name = "nomer_hp", nullable = false)
-    private Long nomerHp; // Ubah dari String ke Long
+    private Long nomerHp;
 
-    @Column(name = "tanggal_lahir", nullable = false) // Ganti ttl dengan tanggal_lahir
+    @Column(name = "tanggal_lahir", nullable = false)
     private String tanggalLahir;
-
-    // Constructors
-    public Siswa() {}
-
-    public Siswa(Long id, String nama, Long nisn, String tempatTinggal, String namaOrangtua, Long nomerHpOrangtua, Long nomerHp, String tanggalLahir) {
-        this.id = id;
-        this.nama = nama;
-        this.nisn = nisn;
-        this.tempatTinggal = tempatTinggal;
-        this.namaOrangtua = namaOrangtua;
-        this.nomerHpOrangtua = nomerHpOrangtua;
-        this.nomerHp = nomerHp;
-        this.tanggalLahir = tanggalLahir;
-    }
 
     // Getters and Setters
     public Long getId() {

@@ -3,12 +3,12 @@ package com.ticket_server.ticket.DTO;
 public class SiswaDTO {
     private Long id;
     private String nama;
-    private Long nisn; // Ubah dari String ke Long
-    private String tempatTinggal; // Ganti alamat dengan tempatTinggal
+    private Long nisn;
+    private String tempatTinggal;
     private String namaOrangtua;
-    private Long nomerHpOrangtua; // Ubah dari String ke Long
-    private Long nomerHp; // Ubah dari String ke Long
-    private String tanggalLahir; // Ganti ttl dengan tanggalLahir
+    private Long nomerHpOrangtua;
+    private Long nomerHp;
+    private String tanggalLahir;
 
     // Getters and Setters
     public Long getId() {
