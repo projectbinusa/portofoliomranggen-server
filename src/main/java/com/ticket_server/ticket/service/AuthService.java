@@ -7,6 +7,7 @@ import com.ticket_server.ticket.repository.AdminRepository;
 import com.ticket_server.ticket.securityNew.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,38 +27,33 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public AdminDetail loadAdminByUsername(String username) {
-        Optional<Admin> adminOptional = adminRepository.findByUsername(username);
+    public AdminDetail loadAdminByUsername(String username) throws UsernameNotFoundException {
+        Optional<Admin> adminOptional = adminRepository.findByEmail(username);
         if (adminOptional.isPresent()) {
             return AdminDetail.buildAdmin(adminOptional.get());
         }
-        throw new IllegalArgumentException("Admin not found with username: " + username);
+        throw new UsernameNotFoundException("Admin not found with username: " + username);
     }
 
     public Map<String, Object> authenticate(LoginRequest loginRequest) {
-        String username = loginRequest.getEmail();
-        String password = loginRequest.getPassword();
-        Map<String, Object> response = new HashMap<>();
+        String email = loginRequest.getEmail();
+        AdminDetail adminDetails = loadAdminByUsername(email);
 
-        try {
-            // Cek apakah pengguna adalah Admin
-            AdminDetail adminDetails = loadAdminByUsername(username);
-            if (passwordEncoder.matches(password, adminDetails.getPassword())) {
-                String token = jwtTokenUtil.generateToken(adminDetails);
-
-                Map<String, Object> adminData = new HashMap<>();
-                adminData.put("id", adminDetails.getId());
-                adminData.put("username", adminDetails.getUsername());
-                adminData.put("role", adminDetails.getRole());
-
-                response.put("userData", adminData);
-                response.put("token", token);
-                return response;
-            }
-        } catch (IllegalArgumentException ignored) {
-            // Jika tidak ditemukan sebagai Admin, lempar exception
+        if (!passwordEncoder.matches(loginRequest.getPassword(), adminDetails.getPassword())) {
+            throw new BadCredentialsException("Invalid email or password");
         }
 
-        throw new BadCredentialsException("Username atau password salah");
+        String token = jwtTokenUtil.generateToken(adminDetails);
+
+        Map<String, Object> adminData = new HashMap<>();
+        adminData.put("id", adminDetails.getId());
+        adminData.put("email", adminDetails.getUsername());
+        adminData.put("role", adminDetails.getRole());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", adminData);
+        response.put("token", token);
+
+        return response;
     }
 }
