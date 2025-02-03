@@ -16,8 +16,8 @@ public class Siswa {
     @Column(name = "nisn", unique = true, nullable = false)
     private Long nisn; // Ubah dari String ke Long
 
-    @Column(name = "tempat_tinggal", nullable = false) // Ganti alamat dengan tempat_tinggal
-    private String tempatTinggal;
+    @Column(name = "alamat", nullable = false) // Ganti alamat dengan tempat_tinggal
+    private String alamat;
 
     @Column(name = "nama_orangtua", nullable = false)
     private String namaOrangtua;
@@ -34,11 +34,11 @@ public class Siswa {
     // Constructors
     public Siswa() {}
 
-    public Siswa(Long id, String nama, Long nisn, String tempatTinggal, String namaOrangtua, Long nomerHpOrangtua, Long nomerHp, String tanggalLahir) {
+    public Siswa(Long id, String nama, Long nisn, String alamat, String namaOrangtua, Long nomerHpOrangtua, Long nomerHp, String tanggalLahir) {
         this.id = id;
         this.nama = nama;
         this.nisn = nisn;
-        this.tempatTinggal = tempatTinggal;
+        this.alamat = alamat;
         this.namaOrangtua = namaOrangtua;
         this.nomerHpOrangtua = nomerHpOrangtua;
         this.nomerHp = nomerHp;
@@ -70,12 +70,12 @@ public class Siswa {
         this.nisn = nisn;
     }
 
-    public String getTempatTinggal() {
-        return tempatTinggal;
+    public String getAlamat() {
+        return alamat;
     }
 
-    public void setTempatTinggal(String tempatTinggal) {
-        this.tempatTinggal = tempatTinggal;
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 
     public String getNamaOrangtua() {

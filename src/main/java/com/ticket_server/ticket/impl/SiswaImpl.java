@@ -34,7 +34,7 @@ public class SiswaImpl implements SiswaService {
         Siswa siswa = new Siswa();
         siswa.setNama(siswaDTO.getNama());
         siswa.setNisn(siswaDTO.getNisn());
-        siswa.setTempatTinggal(siswaDTO.getTempatTinggal());
+        siswa.setAlamat(siswaDTO.getAlamat());
         siswa.setNamaOrangtua(siswaDTO.getNamaOrangtua());
         siswa.setNomerHpOrangtua(siswaDTO.getNomerHpOrangtua());
         siswa.setNomerHp(siswaDTO.getNomerHp());
@@ -46,7 +46,7 @@ public class SiswaImpl implements SiswaService {
         result.setId(savedSiswa.getId());
         result.setNama(savedSiswa.getNama());
         result.setNisn(savedSiswa.getNisn());
-        result.setTempatTinggal(savedSiswa.getTempatTinggal());
+        result.setAlamat(savedSiswa.getAlamat());
         result.setNamaOrangtua(savedSiswa.getNamaOrangtua());
         result.setNomerHpOrangtua(savedSiswa.getNomerHpOrangtua());
         result.setNomerHp(savedSiswa.getNomerHp());
@@ -62,7 +62,7 @@ public class SiswaImpl implements SiswaService {
 
         existingSiswa.setNama(siswaDTO.getNama());
         existingSiswa.setNisn(siswaDTO.getNisn());
-        existingSiswa.setTempatTinggal(siswaDTO.getTempatTinggal());
+        existingSiswa.setAlamat(siswaDTO.getAlamat());
         existingSiswa.setNamaOrangtua(siswaDTO.getNamaOrangtua());
         existingSiswa.setNomerHpOrangtua(siswaDTO.getNomerHpOrangtua());
         existingSiswa.setNomerHp(siswaDTO.getNomerHp());
@@ -74,7 +74,7 @@ public class SiswaImpl implements SiswaService {
         result.setId(updatedSiswa.getId());
         result.setNama(updatedSiswa.getNama());
         result.setNisn(updatedSiswa.getNisn());
-        result.setTempatTinggal(updatedSiswa.getTempatTinggal());
+        result.setAlamat(updatedSiswa.getAlamat());
         result.setNamaOrangtua(updatedSiswa.getNamaOrangtua());
         result.setNomerHpOrangtua(updatedSiswa.getNomerHpOrangtua());
         result.setNomerHp(updatedSiswa.getNomerHp());
