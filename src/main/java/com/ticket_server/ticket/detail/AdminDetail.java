@@ -1,9 +1,9 @@
 package com.ticket_server.ticket.detail;
+
 import com.ticket_server.ticket.model.Admin;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.Collections;
 
