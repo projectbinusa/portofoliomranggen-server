@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface SambutanRepository extends JpaRepository<Sambutan, Long> {
     List<Sambutan> findByJudul(String judul);
-    List<Sambutan> findByDeskripsi(String deskripsi);  // Ganti 'penulis' dengan 'deskripsi'
+    List<Sambutan> findByDeskripsi(String deskripsi);
 }
