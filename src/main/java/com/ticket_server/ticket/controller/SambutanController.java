@@ -33,8 +33,7 @@ public class SambutanController {
             SambutanDTO sambutanDTO = new SambutanDTO();
             sambutanDTO.setId(sambutanEntity.getId());
             sambutanDTO.setJudul(sambutanEntity.getJudul());
-            sambutanDTO.setDeskripsi(sambutanEntity.getDeskripsi());  // Ganti 'konten' dengan 'deskripsi'
-            sambutanDTO.setCreateDate(sambutanEntity.getCreateDate());
+            sambutanDTO.setDeskripsi(sambutanEntity.getDeskripsi());
             return ResponseEntity.ok(sambutanDTO);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }

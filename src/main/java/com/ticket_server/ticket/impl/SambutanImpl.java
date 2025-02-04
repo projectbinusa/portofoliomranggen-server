@@ -32,16 +32,14 @@ public class SambutanImpl implements SambutanService {
     public SambutanDTO tambahSambutan(SambutanDTO sambutanDTO) {
         Sambutan sambutan = new Sambutan();
         sambutan.setJudul(sambutanDTO.getJudul());
-        sambutan.setDeskripsi(sambutanDTO.getDeskripsi());  // Ganti 'konten' dengan 'deskripsi'
-        sambutan.setCreateDate(sambutanDTO.getCreateDate());
+        sambutan.setDeskripsi(sambutanDTO.getDeskripsi());
 
         Sambutan savedSambutan = sambutanRepository.save(sambutan);
 
         SambutanDTO result = new SambutanDTO();
         result.setId(savedSambutan.getId());
         result.setJudul(savedSambutan.getJudul());
-        result.setDeskripsi(savedSambutan.getDeskripsi());  // Ganti 'konten' dengan 'deskripsi'
-        result.setCreateDate(savedSambutan.getCreateDate());
+        result.setDeskripsi(savedSambutan.getDeskripsi());
 
         return result;
     }
@@ -52,16 +50,14 @@ public class SambutanImpl implements SambutanService {
                 .orElseThrow(() -> new NotFoundException("Sambutan tidak ditemukan"));
 
         existingSambutan.setJudul(sambutanDTO.getJudul());
-        existingSambutan.setDeskripsi(sambutanDTO.getDeskripsi());  // Ganti 'konten' dengan 'deskripsi'
-        existingSambutan.setCreateDate(sambutanDTO.getCreateDate());
+        existingSambutan.setDeskripsi(sambutanDTO.getDeskripsi());
 
         Sambutan updatedSambutan = sambutanRepository.save(existingSambutan);
 
         SambutanDTO result = new SambutanDTO();
         result.setId(updatedSambutan.getId());
         result.setJudul(updatedSambutan.getJudul());
-        result.setDeskripsi(updatedSambutan.getDeskripsi());  // Ganti 'konten' dengan 'deskripsi'
-        result.setCreateDate(updatedSambutan.getCreateDate());
+        result.setDeskripsi(updatedSambutan.getDeskripsi());
 
         return result;
     }
