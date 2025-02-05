@@ -48,19 +48,23 @@ public class KegiatanImpl implements KegiatanService {
     @Override
     public KegiatanDTO tambahKegiatanDTO(KegiatanDTO kegiatanDTO) {
         Kegiatan kegiatan = new Kegiatan();
-        kegiatan.setNamaKegiatan(kegiatanDTO.getNamaKegiatan());
+        kegiatan.setNama(kegiatanDTO.getNama());
         kegiatan.setDeskripsi(kegiatanDTO.getDeskripsi());
+        kegiatan.setTingkat(kegiatanDTO.getTingkat());
+        kegiatan.setPenyelenggara(kegiatanDTO.getPenyelenggara());
         kegiatan.setPenanggungJawab(kegiatanDTO.getPenanggungJawab());
-        kegiatan.setCreateDate(kegiatanDTO.getCreateDate());
+        kegiatan.setHasil(kegiatanDTO.getHasil());
 
         Kegiatan savedKegiatan = kegiatanRepository.save(kegiatan);
 
         KegiatanDTO result = new KegiatanDTO();
         result.setId(savedKegiatan.getId());
-        result.setNamaKegiatan(savedKegiatan.getNamaKegiatan());
+        result.setNama(savedKegiatan.getNama());
         result.setDeskripsi(savedKegiatan.getDeskripsi());
+        result.setTingkat(savedKegiatan.getTingkat());
+        result.setPenyelenggara(savedKegiatan.getPenyelenggara());
         result.setPenanggungJawab(savedKegiatan.getPenanggungJawab());
-        result.setCreateDate(savedKegiatan.getCreateDate());
+        result.setHasil(savedKegiatan.getHasil());
 
         return result;
     }
@@ -70,19 +74,23 @@ public class KegiatanImpl implements KegiatanService {
         Kegiatan existingKegiatan = kegiatanRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Kegiatan tidak ditemukan"));
 
-        existingKegiatan.setNamaKegiatan(kegiatanDTO.getNamaKegiatan());
+        existingKegiatan.setNama(kegiatanDTO.getNama());
         existingKegiatan.setDeskripsi(kegiatanDTO.getDeskripsi());
+        existingKegiatan.setTingkat(kegiatanDTO.getTingkat());
+        existingKegiatan.setPenyelenggara(kegiatanDTO.getPenyelenggara());
         existingKegiatan.setPenanggungJawab(kegiatanDTO.getPenanggungJawab());
-        existingKegiatan.setCreateDate(kegiatanDTO.getCreateDate());
+        existingKegiatan.setHasil(kegiatanDTO.getHasil());
 
         Kegiatan updatedKegiatan = kegiatanRepository.save(existingKegiatan);
 
         KegiatanDTO result = new KegiatanDTO();
         result.setId(updatedKegiatan.getId());
-        result.setNamaKegiatan(updatedKegiatan.getNamaKegiatan());
+        result.setNama(updatedKegiatan.getNama());
         result.setDeskripsi(updatedKegiatan.getDeskripsi());
+        result.setTingkat(updatedKegiatan.getTingkat());
+        result.setPenyelenggara(updatedKegiatan.getPenyelenggara());
         result.setPenanggungJawab(updatedKegiatan.getPenanggungJawab());
-        result.setCreateDate(updatedKegiatan.getCreateDate());
+        result.setHasil(updatedKegiatan.getHasil());
 
         return result;
     }

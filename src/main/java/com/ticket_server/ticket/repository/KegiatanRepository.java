@@ -14,12 +14,9 @@ public interface KegiatanRepository extends JpaRepository<Kegiatan, Long> {
 
     Optional<Kegiatan> findById(Long id);
 
-    // Pencarian berdasarkan Nama Kegiatan
-    List<Kegiatan> findByNamaKegiatan(String namaKegiatan);
+    // Pencarian berdasarkan Nama
+    List<Kegiatan> findByNama(String nama);
 
     // Pencarian berdasarkan Penanggung Jawab
     List<Kegiatan> findByPenanggungJawab(String penanggungJawab);
-
-    // Pencarian berdasarkan Create Date
-    List<Kegiatan> findByCreateDate(String createDate);
 }

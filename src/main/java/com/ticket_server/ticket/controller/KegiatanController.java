@@ -34,10 +34,12 @@ public class KegiatanController {
         return kegiatan.map(kegiatanEntity -> {
             KegiatanDTO kegiatanDTO = new KegiatanDTO();
             kegiatanDTO.setId(kegiatanEntity.getId());
-            kegiatanDTO.setNamaKegiatan(kegiatanEntity.getNamaKegiatan());
+            kegiatanDTO.setNama(kegiatanEntity.getNama());
             kegiatanDTO.setDeskripsi(kegiatanEntity.getDeskripsi());
+            kegiatanDTO.setTingkat(kegiatanEntity.getTingkat());
+            kegiatanDTO.setPenyelenggara(kegiatanEntity.getPenyelenggara());
             kegiatanDTO.setPenanggungJawab(kegiatanEntity.getPenanggungJawab());
-            kegiatanDTO.setCreateDate(kegiatanEntity.getCreateDate());
+            kegiatanDTO.setHasil(kegiatanEntity.getHasil());
             return ResponseEntity.ok(kegiatanDTO);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
