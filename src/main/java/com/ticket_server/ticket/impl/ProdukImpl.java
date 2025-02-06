@@ -1,17 +1,11 @@
 package com.ticket_server.ticket.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import  com.ticket_server.ticket.DTO.ProdukDTO;
+import com.ticket_server.ticket.DTO.ProdukDTO;
 import com.ticket_server.ticket.exception.NotFoundException;
 import com.ticket_server.ticket.model.Produk;
 import com.ticket_server.ticket.repository.ProdukRepository;
 import com.ticket_server.ticket.service.ProdukService;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,9 +14,7 @@ import java.util.Optional;
 
 @Service
 public class ProdukImpl implements ProdukService {
-    private static final String BASE_URL = "https://s3.lynk2.co/api/s3";
     private final ProdukRepository produkRepository;
-    private final RestTemplate restTemplate = new RestTemplate();
 
     public ProdukImpl(ProdukRepository produkRepository) {
         this.produkRepository = produkRepository;
@@ -45,6 +37,7 @@ public class ProdukImpl implements ProdukService {
         produk.setHarga(produkDTO.getHarga());
         produk.setDeskripsi(produkDTO.getDeskripsi());
         produk.setFotoUrl(produkDTO.getFotoUrl());
+        produk.setKondisi(produkDTO.getKondisi());
 
         Produk savedProduk = produkRepository.save(produk);
 
@@ -54,6 +47,7 @@ public class ProdukImpl implements ProdukService {
         result.setHarga(savedProduk.getHarga());
         result.setDeskripsi(savedProduk.getDeskripsi());
         result.setFotoUrl(savedProduk.getFotoUrl());
+        result.setKondisi(savedProduk.getKondisi());
         return result;
     }
 
@@ -66,6 +60,7 @@ public class ProdukImpl implements ProdukService {
         existingProduk.setHarga(produkDTO.getHarga());
         existingProduk.setDeskripsi(produkDTO.getDeskripsi());
         existingProduk.setFotoUrl(produkDTO.getFotoUrl());
+        existingProduk.setKondisi(produkDTO.getKondisi());
 
         Produk updatedProduk = produkRepository.save(existingProduk);
 
@@ -75,6 +70,7 @@ public class ProdukImpl implements ProdukService {
         result.setHarga(updatedProduk.getHarga());
         result.setDeskripsi(updatedProduk.getDeskripsi());
         result.setFotoUrl(updatedProduk.getFotoUrl());
+        result.setKondisi(updatedProduk.getKondisi());
         return result;
     }
 
@@ -88,28 +84,11 @@ public class ProdukImpl implements ProdukService {
 
     @Override
     public String uploadFoto(MultipartFile file) throws IOException {
-        String uploadUrl = BASE_URL + "/uploadFoto";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-
-        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("file", file.getResource());
-
-        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-
-        ResponseEntity<String> response = restTemplate.exchange(uploadUrl, HttpMethod.POST, requestEntity, String.class);
-
-        if (response.getStatusCode() == HttpStatus.OK) {
-            return extractFileUrlFromResponse(response.getBody());
-        } else {
-            throw new IOException("Failed to upload file: " + response.getStatusCode());
-        }
+        return null;
     }
 
-    private String extractFileUrlFromResponse(String responseBody) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonResponse = mapper.readTree(responseBody);
-        JsonNode dataNode = jsonResponse.path("data");
-        return dataNode.path("url_file").asText();
+    @Override
+    public List<Produk> getProdukByKondisi(String kondisi) {
+        return produkRepository.findByKondisi(kondisi);
     }
 }
