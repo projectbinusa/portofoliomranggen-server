@@ -2,57 +2,56 @@ package com.ticket_server.ticket.controller;
 
 import com.ticket_server.ticket.DTO.GuruDTO;
 import com.ticket_server.ticket.service.GuruService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/guru")
 public class GuruController {
 
+    private static final Logger logger = LoggerFactory.getLogger(GuruController.class);
     private final GuruService guruService;
 
     public GuruController(GuruService guruService) {
         this.guruService = guruService;
     }
 
-    @GetMapping("/guru/all")
+    @GetMapping("/all")
     public ResponseEntity<List<GuruDTO>> getAllGuru() {
-        List<GuruDTO> guruDTOList = guruService.getAllGuru();
-        return ResponseEntity.ok(guruDTOList); // Menggunakan GuruDTO
+        return ResponseEntity.ok(guruService.getAllGuru());
     }
 
-    @GetMapping("/guru/getAllByAdmin/{idAdmin}")
-    public ResponseEntity<List<GuruDTO>> getAllByAdmin(@PathVariable Long idAdmin) {
-        List<GuruDTO> guruDTOList = guruService.getAllByAdmin(idAdmin);
-        return ResponseEntity.ok(guruDTOList); // Menggunakan GuruDTO
-    }
-
-    @GetMapping("/guru/getById/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<GuruDTO> getGuruById(@PathVariable Long id) {
-        GuruDTO guruDTO = guruService.getGuruById(id);
-        return ResponseEntity.ok(guruDTO); // Menggunakan GuruDTO
+        return ResponseEntity.ok(guruService.getGuruById(id));
     }
 
-    @PostMapping("/guru/tambah/{idAdmin}")
-    public ResponseEntity<GuruDTO> tambahGuru(@PathVariable Long idAdmin, @RequestBody GuruDTO guruDTO) {
-        GuruDTO newGuru = guruService.tambahGuruDTO(idAdmin, guruDTO);
-        return ResponseEntity.ok(newGuru);
+    @PostMapping("/tambah")
+    public ResponseEntity<GuruDTO> tambahGuru(@Valid @RequestBody GuruDTO guruDTO) {
+        logger.info("Menambahkan guru dengan idAdmin: {}", guruDTO.getIdAdmin());
+        GuruDTO savedGuru = guruService.tambahGuruDTO(guruDTO);
+        return new ResponseEntity<>(savedGuru, HttpStatus.CREATED);
     }
 
-    @PutMapping("/guru/edit/{id}/{idAdmin}")
+    @PutMapping("/editById/{id}")
     public ResponseEntity<GuruDTO> editGuru(
             @PathVariable Long id,
-            @PathVariable Long idAdmin,
-            @RequestBody GuruDTO guruDTO) {
-        GuruDTO updatedGuru = guruService.editGuruDTO(id, idAdmin, guruDTO);
+            @Valid @RequestBody GuruDTO guruDTO) throws IOException {
+        logger.info("Mengedit guru ID: {}, idAdmin: {}", id, guruDTO.getIdAdmin());
+        GuruDTO updatedGuru = guruService.editGuruDTO(id, guruDTO);
         return ResponseEntity.ok(updatedGuru);
     }
 
-    @DeleteMapping("/guru/delete/{id}")
-    public ResponseEntity<Void> deleteGuru(@PathVariable Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteGuru(@PathVariable Long id) throws IOException {
         guruService.deleteGuru(id);
         return ResponseEntity.noContent().build();
     }

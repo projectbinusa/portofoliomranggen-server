@@ -2,11 +2,13 @@ package com.ticket_server.ticket.impl;
 
 import com.ticket_server.ticket.DTO.GuruDTO;
 import com.ticket_server.ticket.exception.NotFoundException;
-import com.ticket_server.ticket.model.Admin;
 import com.ticket_server.ticket.model.Guru;
-import com.ticket_server.ticket.repository.AdminRepository;
+import com.ticket_server.ticket.model.Admin;
 import com.ticket_server.ticket.repository.GuruRepository;
+import com.ticket_server.ticket.repository.AdminRepository;
 import com.ticket_server.ticket.service.GuruService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class GuruImpl implements GuruService {
 
+    private static final Logger logger = LoggerFactory.getLogger(GuruImpl.class);
     private final GuruRepository guruRepository;
     private final AdminRepository adminRepository;
 
@@ -33,13 +36,6 @@ public class GuruImpl implements GuruService {
     }
 
     @Override
-    public List<GuruDTO> getAllByAdmin(Long idAdmin) {
-        return guruRepository.findByAdminId(idAdmin).stream()
-                .map(GuruDTO::new)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public GuruDTO getGuruById(Long id) {
         Guru guru = guruRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Guru tidak ditemukan"));
@@ -47,40 +43,35 @@ public class GuruImpl implements GuruService {
     }
 
     @Override
-    public GuruDTO tambahGuruDTO(Long idAdmin, GuruDTO guruDTO) {
-        Admin admin = adminRepository.findById(idAdmin)
-                .orElseThrow(() -> new NotFoundException("Admin tidak ditemukan"));
+    public GuruDTO tambahGuruDTO(GuruDTO guruDTO) {
+        logger.info("Mengecek keberadaan Admin dengan ID: {}", guruDTO.getIdAdmin());
+        Admin admin = adminRepository.findById(guruDTO.getIdAdmin())
+                .orElseThrow(() -> new NotFoundException("Admin dengan ID " + guruDTO.getIdAdmin() + " tidak ditemukan"));
 
-        Guru guru = new Guru();
-        guru.setAdmin(admin);
-        guru.setNamaGuru(guruDTO.getNamaGuru());
-        guru.setNip(guruDTO.getNip());
-        guru.setAlamat(guruDTO.getAlamat());
-        guru.setNomerHp(guruDTO.getNomerHp());
-        guru.setTahunDiterima(guruDTO.getTahunDiterima());
-        guru.setLamaKerja(guruDTO.getLamaKerja());
-
+        Guru guru = guruDTO.toEntity(admin);
         Guru savedGuru = guruRepository.save(guru);
         return new GuruDTO(savedGuru);
     }
 
     @Override
-    public GuruDTO editGuruDTO(Long id, Long idAdmin, GuruDTO guruDTO) {
-        Guru guru = guruRepository.findById(id)
+    public GuruDTO editGuruDTO(Long id, GuruDTO guruDTO) {
+        logger.info("Mengedit Guru ID: {}, dengan Admin ID: {}", id, guruDTO.getIdAdmin());
+
+        Guru existingGuru = guruRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Guru tidak ditemukan"));
 
-        Admin admin = adminRepository.findById(idAdmin)
-                .orElseThrow(() -> new NotFoundException("Admin tidak ditemukan"));
+        Admin admin = adminRepository.findById(guruDTO.getIdAdmin())
+                .orElseThrow(() -> new NotFoundException("Admin dengan ID " + guruDTO.getIdAdmin() + " tidak ditemukan"));
 
-        guru.setAdmin(admin);
-        guru.setNamaGuru(guruDTO.getNamaGuru());
-        guru.setNip(guruDTO.getNip());
-        guru.setAlamat(guruDTO.getAlamat());
-        guru.setNomerHp(guruDTO.getNomerHp());
-        guru.setTahunDiterima(guruDTO.getTahunDiterima());
-        guru.setLamaKerja(guruDTO.getLamaKerja());
+        existingGuru.setNamaGuru(guruDTO.getNamaGuru());
+        existingGuru.setNip(guruDTO.getNip());
+        existingGuru.setAlamat(guruDTO.getAlamat());
+        existingGuru.setNomerHp(guruDTO.getNomerHp());
+        existingGuru.setTahunDiterima(guruDTO.getTahunDiterima());
+        existingGuru.setLamaKerja(guruDTO.getLamaKerja());
+        existingGuru.setAdmin(admin);
 
-        Guru updatedGuru = guruRepository.save(guru);
+        Guru updatedGuru = guruRepository.save(existingGuru);
         return new GuruDTO(updatedGuru);
     }
 

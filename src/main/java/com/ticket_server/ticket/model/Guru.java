@@ -10,22 +10,22 @@ public class Guru {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nama_guru")
+    @Column(name = "nama", nullable = false)  // Menggunakan nama yang sesuai dengan kolom database
     private String namaGuru;
 
-    @Column(name = "nip")
+    @Column(name = "nip", unique = true, nullable = false)
     private String nip;
 
-    @Column(name = "alamat")
+    @Column(name = "alamat", nullable = false)
     private String alamat;
 
-    @Column(name = "nomer_hp")
+    @Column(name = "nomer_hp", nullable = false)
     private String nomerHp;
 
-    @Column(name = "tahun_diterima")
+    @Column(name = "tahun_diterima", nullable = false)
     private Integer tahunDiterima;
 
-    @Column(name = "lama_kerja")
+    @Column(name = "lama_kerja", nullable = false)
     private Integer lamaKerja;
 
     @ManyToOne

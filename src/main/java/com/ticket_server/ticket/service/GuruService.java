@@ -5,15 +5,9 @@ import com.ticket_server.ticket.DTO.GuruDTO;
 import java.util.List;
 
 public interface GuruService {
-    List<GuruDTO> getAllGuru(); // Ganti return type menjadi GuruDTO
-
-    List<GuruDTO> getAllByAdmin(Long idAdmin); // Ganti return type menjadi GuruDTO
-
+    List<GuruDTO> getAllGuru();
     GuruDTO getGuruById(Long id);
-
-    GuruDTO tambahGuruDTO(Long idAdmin, GuruDTO guruDTO);
-
-    GuruDTO editGuruDTO(Long id, Long idAdmin, GuruDTO guruDTO);
-
+    GuruDTO tambahGuruDTO(GuruDTO guruDTO);
+    GuruDTO editGuruDTO(Long id, GuruDTO guruDTO);
     void deleteGuru(Long id);
 }
