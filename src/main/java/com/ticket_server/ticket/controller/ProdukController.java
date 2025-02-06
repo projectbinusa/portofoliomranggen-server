@@ -37,8 +37,15 @@ public class ProdukController {
             produkDTO.setNama(produkEntity.getNama());
             produkDTO.setHarga(produkEntity.getHarga());
             produkDTO.setDeskripsi(produkEntity.getDeskripsi());
+            produkDTO.setKondisi(produkEntity.getKondisi());
             return ResponseEntity.ok(produkDTO);
         }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/produk/getByKondisi/{kondisi}")
+    public ResponseEntity<List<Produk>> getProdukByKondisi(@PathVariable String kondisi) {
+        List<Produk> produkList = produkService.getProdukByKondisi(kondisi);
+        return ResponseEntity.ok(produkList);
     }
 
     @PostMapping("/produk/tambah")
