@@ -57,8 +57,8 @@ public class GuruImpl implements GuruService {
         guru.setNip(guruDTO.getNip());
         guru.setAlamat(guruDTO.getAlamat());
         guru.setNomerHp(guruDTO.getNomerHp());
-        guru.setTahunDiterima(guruDTO.getTahunDiterima()); // Changed to String
-        guru.setLamaKerja(guruDTO.getLamaKerja()); // Changed to String
+        guru.setTahunDiterima(String.valueOf(guruDTO.getTahunDiterima()));  // Changed to Long
+        guru.setLamaKerja(String.valueOf(guruDTO.getLamaKerja()));  // Changed to Long
 
         Guru savedGuru = guruRepository.save(guru);
         return new GuruDTO(savedGuru);
@@ -77,8 +77,8 @@ public class GuruImpl implements GuruService {
         guru.setNip(guruDTO.getNip());
         guru.setAlamat(guruDTO.getAlamat());
         guru.setNomerHp(guruDTO.getNomerHp());
-        guru.setTahunDiterima(guruDTO.getTahunDiterima()); // Changed to String
-        guru.setLamaKerja(guruDTO.getLamaKerja()); // Changed to String
+        guru.setTahunDiterima(String.valueOf(guruDTO.getTahunDiterima()));  // Changed to Long
+        guru.setLamaKerja(String.valueOf(guruDTO.getLamaKerja()));  // Changed to Long
 
         Guru updatedGuru = guruRepository.save(guru);
         return new GuruDTO(updatedGuru);
