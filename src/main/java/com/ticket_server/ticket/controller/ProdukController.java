@@ -42,11 +42,6 @@ public class ProdukController {
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/produk/getByKondisi/{kondisi}")
-    public ResponseEntity<List<Produk>> getProdukByKondisi(@PathVariable String kondisi) {
-        List<Produk> produkList = produkService.getProdukByKondisi(kondisi);
-        return ResponseEntity.ok(produkList);
-    }
 
     @PostMapping("/produk/tambah")
     public ResponseEntity<ProdukDTO> tambahProduk(@RequestBody ProdukDTO produkDTO) {
