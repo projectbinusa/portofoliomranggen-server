@@ -21,19 +21,19 @@ public class GuruController {
     @GetMapping("/guru/all")
     public ResponseEntity<List<GuruDTO>> getAllGuru() {
         List<GuruDTO> guruDTOList = guruService.getAllGuru();
-        return ResponseEntity.ok(guruDTOList); // Menggunakan GuruDTO
+        return ResponseEntity.ok(guruDTOList);
     }
 
     @GetMapping("/guru/getAllByAdmin/{idAdmin}")
     public ResponseEntity<List<GuruDTO>> getAllByAdmin(@PathVariable Long idAdmin) {
         List<GuruDTO> guruDTOList = guruService.getAllByAdmin(idAdmin);
-        return ResponseEntity.ok(guruDTOList); // Menggunakan GuruDTO
+        return ResponseEntity.ok(guruDTOList);
     }
 
     @GetMapping("/guru/getById/{id}")
     public ResponseEntity<GuruDTO> getGuruById(@PathVariable Long id) {
         GuruDTO guruDTO = guruService.getGuruById(id);
-        return ResponseEntity.ok(guruDTO); // Menggunakan GuruDTO
+        return ResponseEntity.ok(guruDTO);
     }
 
     @PostMapping("/guru/tambah/{idAdmin}")
@@ -43,10 +43,7 @@ public class GuruController {
     }
 
     @PutMapping("/guru/edit/{id}/{idAdmin}")
-    public ResponseEntity<GuruDTO> editGuru(
-            @PathVariable Long id,
-            @PathVariable Long idAdmin,
-            @RequestBody GuruDTO guruDTO) {
+    public ResponseEntity<GuruDTO> editGuru(@PathVariable Long id, @PathVariable Long idAdmin, @RequestBody GuruDTO guruDTO) {
         GuruDTO updatedGuru = guruService.editGuruDTO(id, idAdmin, guruDTO);
         return ResponseEntity.ok(updatedGuru);
     }
