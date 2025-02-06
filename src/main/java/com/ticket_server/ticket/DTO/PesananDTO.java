@@ -8,7 +8,6 @@ public class PesananDTO {
     private int jumlah;
     private double harga;
     private String kondisi;
-    private String aksi;
 
     public PesananDTO() {}
 
@@ -18,7 +17,6 @@ public class PesananDTO {
         this.jumlah = pesanan.getJumlah();
         this.harga = pesanan.getHarga();
         this.kondisi = pesanan.getKondisi();
-        this.aksi = pesanan.getAksi();
     }
 
     public Long getId() { return id; }
@@ -35,7 +33,4 @@ public class PesananDTO {
 
     public String getKondisi() { return kondisi; }
     public void setKondisi(String kondisi) { this.kondisi = kondisi; }
-
-    public String getAksi() { return aksi; }
-    public void setAksi(String aksi) { this.aksi = aksi; }
 }

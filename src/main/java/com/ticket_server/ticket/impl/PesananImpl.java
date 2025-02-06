@@ -44,7 +44,6 @@ public class PesananImpl implements PesananService {
         existingPesanan.setJumlah(pesananDTO.getJumlah());
         existingPesanan.setHarga(pesananDTO.getHarga());
         existingPesanan.setKondisi(pesananDTO.getKondisi());
-        existingPesanan.setAksi(pesananDTO.getAksi());
 
         Pesanan updatedPesanan = pesananRepository.save(existingPesanan);
         return new PesananDTO(updatedPesanan);
