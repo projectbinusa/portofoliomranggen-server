@@ -24,9 +24,6 @@ public class Pesanan {
     @Column(name = "kondisi", nullable = false)
     private String kondisi;
 
-    @Column(name = "aksi", nullable = false)
-    private String aksi;
-
     public Pesanan() {}
 
     public Pesanan(PesananDTO dto) {
@@ -34,7 +31,6 @@ public class Pesanan {
         this.jumlah = dto.getJumlah();
         this.harga = dto.getHarga();
         this.kondisi = dto.getKondisi();
-        this.aksi = dto.getAksi();
     }
 
     public Long getId() { return id; }
@@ -51,7 +47,4 @@ public class Pesanan {
 
     public String getKondisi() { return kondisi; }
     public void setKondisi(String kondisi) { this.kondisi = kondisi; }
-
-    public String getAksi() { return aksi; }
-    public void setAksi(String aksi) { this.aksi = aksi; }
 }
