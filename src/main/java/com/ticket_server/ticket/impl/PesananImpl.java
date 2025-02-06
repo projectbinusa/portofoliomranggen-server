@@ -40,7 +40,7 @@ public class PesananImpl implements PesananService {
         Pesanan existingPesanan = pesananRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Pesanan tidak ditemukan"));
 
-        existingPesanan.setNama(pesananDTO.getNama());
+        existingPesanan.setNamaPesanan(pesananDTO.getNamaPesanan());
         existingPesanan.setJumlah(pesananDTO.getJumlah());
         existingPesanan.setHarga(pesananDTO.getHarga());
         existingPesanan.setKondisi(pesananDTO.getKondisi());
