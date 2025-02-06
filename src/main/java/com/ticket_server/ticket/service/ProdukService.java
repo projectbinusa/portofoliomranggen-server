@@ -14,5 +14,6 @@ public interface ProdukService {
     ProdukDTO tambahProdukDTO(ProdukDTO produkDTO);
     ProdukDTO editProdukDTO(Long id, ProdukDTO produkDTO) throws IOException;
     void deleteProduk(Long id) throws IOException;
-    String uploadFoto(MultipartFile file) throws IOException; // Tambahkan method ini
+    String uploadFoto(MultipartFile file) throws IOException;
+    List<Produk> getProdukByKondisi(String kondisi);
 }
