@@ -15,10 +15,10 @@ public class GuruDTO {
     private String nip;
     private String alamat;
     private String nomerHp;
-    private Integer tahunDiterima;
-    private Integer lamaKerja;
+    private String tahunDiterima; // Changed to String
+    private String lamaKerja; // Changed to String
 
-    // Constructor untuk konversi dari entity Guru ke DTO
+    // Constructor for converting Guru entity to DTO
     public GuruDTO(Guru guru) {
         this.id = guru.getId();
         this.idAdmin = guru.getAdmin().getId();

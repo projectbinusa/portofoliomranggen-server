@@ -23,10 +23,10 @@ public class Guru {
     private String nomerHp;
 
     @Column(name = "tahun_diterima")
-    private Integer tahunDiterima;
+    private String tahunDiterima; // Changed to String
 
     @Column(name = "lama_kerja")
-    private Integer lamaKerja;
+    private String lamaKerja; // Changed to String
 
     @ManyToOne
     @JoinColumn(name = "id_admin", nullable = false)
@@ -73,19 +73,19 @@ public class Guru {
         this.nomerHp = nomerHp;
     }
 
-    public Integer getTahunDiterima() {
+    public String getTahunDiterima() {
         return tahunDiterima;
     }
 
-    public void setTahunDiterima(Integer tahunDiterima) {
+    public void setTahunDiterima(String tahunDiterima) {
         this.tahunDiterima = tahunDiterima;
     }
 
-    public Integer getLamaKerja() {
+    public String getLamaKerja() {
         return lamaKerja;
     }
 
-    public void setLamaKerja(Integer lamaKerja) {
+    public void setLamaKerja(String lamaKerja) {
         this.lamaKerja = lamaKerja;
     }
 
