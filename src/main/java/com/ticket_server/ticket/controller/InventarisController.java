@@ -52,8 +52,13 @@ public class InventarisController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteInventaris(@PathVariable Long id) {
-        inventarisService.deleteInventaris(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> deleteInventaris(@PathVariable Long id) {
+        boolean deleted = inventarisService.deleteInventaris(id);
+        if (deleted) {
+            return ResponseEntity.ok("Inventaris dengan ID " + id + " berhasil dihapus.");
+        } else {
+            return ResponseEntity.status(404).body("Inventaris dengan ID " + id + " tidak ditemukan.");
+        }
     }
+
 }

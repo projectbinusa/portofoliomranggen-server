@@ -44,8 +44,14 @@ public class InventarisService {
         return null;
     }
 
-    public void deleteInventaris(Long id) {
-        inventarisRepository.deleteById(id);
+    public boolean deleteInventaris(Long id) {
+        Optional<Inventaris> inventaris = inventarisRepository.findById(id);
+        if (inventaris.isPresent()) {
+            inventarisRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
+
 }
 
