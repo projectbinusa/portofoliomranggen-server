@@ -10,7 +10,7 @@ public class Guru {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nama", nullable = false)  // Menggunakan nama yang sesuai dengan kolom database
+    @Column(name = "nama", nullable = false)
     private String namaGuru;
 
     @Column(name = "nip", unique = true, nullable = false)

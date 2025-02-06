@@ -9,5 +9,5 @@ public interface GuruService {
     GuruDTO getGuruById(Long id);
     GuruDTO tambahGuruDTO(GuruDTO guruDTO);
     GuruDTO editGuruDTO(Long id, GuruDTO guruDTO);
-    void deleteGuru(Long id);
+    boolean deleteGuru(Long id);
 }

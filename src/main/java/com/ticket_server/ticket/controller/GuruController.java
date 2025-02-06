@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -26,17 +25,23 @@ public class GuruController {
 
     @GetMapping("/all")
     public ResponseEntity<List<GuruDTO>> getAllGuru() {
-        return ResponseEntity.ok(guruService.getAllGuru());
+        List<GuruDTO> guruList = guruService.getAllGuru();
+        if (guruList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(guruList);
     }
 
     @GetMapping("/getById/{id}")
     public ResponseEntity<GuruDTO> getGuruById(@PathVariable Long id) {
-        return ResponseEntity.ok(guruService.getGuruById(id));
+        GuruDTO guruDTO = guruService.getGuruById(id);
+        return guruDTO != null ? ResponseEntity.ok(guruDTO) : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/tambah")
     public ResponseEntity<GuruDTO> tambahGuru(@Valid @RequestBody GuruDTO guruDTO) {
-        logger.info("Menambahkan guru dengan idAdmin: {}", guruDTO.getIdAdmin());
+        logger.info("Request tambah guru diterima: {}", guruDTO);
+
         GuruDTO savedGuru = guruService.tambahGuruDTO(guruDTO);
         return new ResponseEntity<>(savedGuru, HttpStatus.CREATED);
     }
@@ -44,15 +49,15 @@ public class GuruController {
     @PutMapping("/editById/{id}")
     public ResponseEntity<GuruDTO> editGuru(
             @PathVariable Long id,
-            @Valid @RequestBody GuruDTO guruDTO) throws IOException {
+            @Valid @RequestBody GuruDTO guruDTO) {
         logger.info("Mengedit guru ID: {}, idAdmin: {}", id, guruDTO.getIdAdmin());
         GuruDTO updatedGuru = guruService.editGuruDTO(id, guruDTO);
-        return ResponseEntity.ok(updatedGuru);
+        return updatedGuru != null ? ResponseEntity.ok(updatedGuru) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteGuru(@PathVariable Long id) throws IOException {
-        guruService.deleteGuru(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteGuru(@PathVariable Long id) {
+        boolean isDeleted = guruService.deleteGuru(id);
+        return isDeleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }
