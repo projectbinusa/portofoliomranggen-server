@@ -12,8 +12,8 @@ public class Pesanan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nama", nullable = false)
-    private String nama;
+    @Column(name = "nama_pesanan", nullable = false) // Mengganti nama menjadi nama_pesanan
+    private String namaPesanan;
 
     @Column(name = "jumlah", nullable = false)
     private int jumlah;
@@ -27,7 +27,7 @@ public class Pesanan {
     public Pesanan() {}
 
     public Pesanan(PesananDTO dto) {
-        this.nama = dto.getNama();
+        this.namaPesanan = dto.getNamaPesanan(); // Menggunakan namaPesanan dari DTO
         this.jumlah = dto.getJumlah();
         this.harga = dto.getHarga();
         this.kondisi = dto.getKondisi();
@@ -36,8 +36,8 @@ public class Pesanan {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public String getNama() { return nama; }
-    public void setNama(String nama) { this.nama = nama; }
+    public String getNamaPesanan() { return namaPesanan; }
+    public void setNamaPesanan(String namaPesanan) { this.namaPesanan = namaPesanan; }
 
     public int getJumlah() { return jumlah; }
     public void setJumlah(int jumlah) { this.jumlah = jumlah; }

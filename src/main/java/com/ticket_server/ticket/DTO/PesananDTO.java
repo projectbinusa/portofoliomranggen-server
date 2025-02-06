@@ -4,7 +4,7 @@ import com.ticket_server.ticket.model.Pesanan;
 
 public class PesananDTO {
     private Long id;
-    private String nama;
+    private String namaPesanan; // Nama pesanan ditambahkan
     private int jumlah;
     private double harga;
     private String kondisi;
@@ -13,7 +13,7 @@ public class PesananDTO {
 
     public PesananDTO(Pesanan pesanan) {
         this.id = pesanan.getId();
-        this.nama = pesanan.getNama();
+        this.namaPesanan = pesanan.getNamaPesanan(); // Mengambil nama pesanan
         this.jumlah = pesanan.getJumlah();
         this.harga = pesanan.getHarga();
         this.kondisi = pesanan.getKondisi();
@@ -22,8 +22,8 @@ public class PesananDTO {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public String getNama() { return nama; }
-    public void setNama(String nama) { this.nama = nama; }
+    public String getNamaPesanan() { return namaPesanan; } // Getter untuk nama pesanan
+    public void setNamaPesanan(String namaPesanan) { this.namaPesanan = namaPesanan; } // Setter untuk nama pesanan
 
     public int getJumlah() { return jumlah; }
     public void setJumlah(int jumlah) { this.jumlah = jumlah; }
