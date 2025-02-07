@@ -3,42 +3,44 @@ package com.ticket_server.ticket.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email", nullable = false, unique = true)
+    private Long adminId;
+    private String username;
     private String email;
-
-    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    public User() {}
 
-    @Column(name = "role")
-    private String role;
-
-    public User() {
-    }
-
-    public User(Long id, String email, String password, String username, String role) {
-        this.id = id;
+    public User(Long adminId, String username, String email, String password) {
+        this.adminId = adminId;
+        this.username = username;
         this.email = email;
         this.password = password;
-        this.username = username;
-        this.role = role;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Long adminId) {
+        this.adminId = adminId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -55,21 +57,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

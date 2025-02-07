@@ -1,58 +1,67 @@
 package com.ticket_server.ticket.controller;
 
 import com.ticket_server.ticket.model.User;
-import com.ticket_server.ticket.DTO.PasswordDTO;
-import com.ticket_server.ticket.exception.CommonResponse;
-import com.ticket_server.ticket.exception.ResponseHelper;
 import com.ticket_server.ticket.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/user")
-@CrossOrigin(origins = "*")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        User registeredUser = userService.registerUser(user);
-        return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getById(id);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        List<User> users = userService.getAllUsers();
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        Optional<User> user = userService.getUserById(id);
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/tambah")
+    public ResponseEntity<User> tambahUser(@RequestBody User user) {
+        try {
+            User savedUser = userService.tambahUser(user);
+            return ResponseEntity.ok(savedUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        User updatedUser = userService.edit(id, user);
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
-    }
-
-    @PutMapping("/edit-password/{id}")
-    public CommonResponse<User> updateUserPassword(@RequestBody PasswordDTO password, @PathVariable Long id) {
-        return ResponseHelper.ok(userService.putPasswordUser(password, id));
+    public ResponseEntity<User> editUser(@PathVariable Long id, @RequestBody User user) {
+        User updatedUser = userService.editUser(id, user);
+        if (updatedUser != null) {
+            return ResponseEntity.ok(updatedUser);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Long id) {
-        Map<String, Boolean> response = userService.delete(id);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        boolean deleted = userService.deleteUser(id);
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
