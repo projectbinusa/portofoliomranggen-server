@@ -1,14 +1,17 @@
 package com.ticket_server.ticket.DTO;
 
+import javax.validation.constraints.NotBlank;
+
 public class SiswaDTO {
     private Long id;
     private String nama;
-    private Long nisn;
-    private String tempatTinggal;
+    private Long nisn; // Ubah dari String ke Long
+    @NotBlank(message = "Alamat tidak boleh kosong")
+    private String alamat; // Ganti alamat dengan alamat
     private String namaOrangtua;
-    private Long nomerHpOrangtua;
-    private Long nomerHp;
-    private String tanggalLahir;
+    private Long nomerHpOrangtua; // Ubah dari String ke Long
+    private Long nomerHp; // Ubah dari String ke Long
+    private String tanggalLahir; // Ganti ttl dengan tanggalLahir
 
     // Getters and Setters
     public Long getId() {
@@ -35,12 +38,12 @@ public class SiswaDTO {
         this.nisn = nisn;
     }
 
-    public String getTempatTinggal() {
-        return tempatTinggal;
+    public String getAlamat() {
+        return alamat;
     }
 
-    public void setTempatTinggal(String tempatTinggal) {
-        this.tempatTinggal = tempatTinggal;
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 
     public String getNamaOrangtua() {

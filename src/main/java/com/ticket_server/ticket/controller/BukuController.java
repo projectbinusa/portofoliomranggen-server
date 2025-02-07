@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -23,26 +24,28 @@ public class BukuController {
 
     @GetMapping("/buku/all")
     public ResponseEntity<List<Buku>> getAllBuku() {
-        return ResponseEntity.ok(bukuService.getAllBuku());
+        List<Buku> bukuList = bukuService.getAllBuku();
+        return ResponseEntity.ok(bukuList);
     }
 
     @GetMapping("/buku/getAllByAdmin/{idAdmin}")
     public ResponseEntity<List<Buku>> getAllByAdmin(@PathVariable Long idAdmin) {
-        return ResponseEntity.ok(bukuService.getAllByAdmin(idAdmin));
+        List<Buku> bukuList = bukuService.getAllByAdmin(idAdmin);
+        return ResponseEntity.ok(bukuList);
     }
 
     @GetMapping("/buku/getById/{id}")
     public ResponseEntity<Buku> getBukuById(@PathVariable Long id) {
-        return bukuService.getBukuById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<Buku> buku = bukuService.getBukuById(id);
+        return buku.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/buku/tambah/{idAdmin}")
     public ResponseEntity<BukuDTO> tambahBuku(
             @PathVariable Long idAdmin,
             @RequestBody BukuDTO bukuDTO) {
-        return ResponseEntity.ok(bukuService.tambahBukuDTO(idAdmin, bukuDTO));
+        BukuDTO savedBuku = bukuService.tambahBukuDTO(idAdmin, bukuDTO);
+        return ResponseEntity.ok(savedBuku);
     }
 
     @PutMapping("/buku/edit/{id}/{idAdmin}")
@@ -51,7 +54,9 @@ public class BukuController {
             @PathVariable Long idAdmin,
             @RequestParam("buku") String bukuJson,
             @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
-        return ResponseEntity.ok(bukuService.editBukuDTO(id, idAdmin, bukuJson, file));
+
+        BukuDTO updatedBuku = bukuService.editBukuDTO(id, idAdmin, bukuJson, file);
+        return ResponseEntity.ok(updatedBuku);
     }
 
     @DeleteMapping("/buku/delete/{id}")

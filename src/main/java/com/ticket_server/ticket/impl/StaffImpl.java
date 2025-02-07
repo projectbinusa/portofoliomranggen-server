@@ -31,21 +31,6 @@ public class StaffImpl implements StaffService {
     }
 
     @Override
-    public StaffDTO tambahStaff(StaffDTO staffDTO) {
-        return null;
-    }
-
-    @Override
-    public StaffDTO editStaff(Long id, StaffDTO staffDTO) throws IOException {
-        return null;
-    }
-
-    @Override
-    public StaffDTO editStaff(Long id, String staffJson, MultipartFile file) throws IOException {
-        return null;
-    }
-
-    @Override
     public StaffDTO tambahStaffDTO(StaffDTO staffDTO) {
         Staff staff = new Staff();
         staff.setNama(staffDTO.getNama());

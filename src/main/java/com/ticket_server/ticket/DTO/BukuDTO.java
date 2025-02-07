@@ -4,7 +4,6 @@ public class BukuDTO {
 
     private Long id;
     private String judulBuku;
-    private String isbn;
     private String penerbit;
     private String pengarang;
     private int tahunTerbit;
@@ -26,14 +25,6 @@ public class BukuDTO {
 
     public void setJudulBuku(String judulBuku) {
         this.judulBuku = judulBuku;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
     }
 
     public String getPenerbit() {

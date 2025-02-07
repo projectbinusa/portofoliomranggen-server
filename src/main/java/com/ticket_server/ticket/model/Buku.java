@@ -20,8 +20,7 @@ public class Buku {
     @Column(name = "judul_buku", nullable = false)
     private String judulBuku;
 
-    @Column(name = "isbn", unique = true, nullable = false)
-    private String isbn;
+
 
     @Column(name = "penerbit")
     private String penerbit;

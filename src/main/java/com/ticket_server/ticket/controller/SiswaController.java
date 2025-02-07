@@ -36,7 +36,7 @@ public class SiswaController {
             siswaDTO.setId(siswaEntity.getId());
             siswaDTO.setNama(siswaEntity.getNama());
             siswaDTO.setNisn(siswaEntity.getNisn());
-            siswaDTO.setTempatTinggal(siswaEntity.getTempatTinggal());
+            siswaDTO.setAlamat(siswaEntity.getAlamat());
             siswaDTO.setNamaOrangtua(siswaEntity.getNamaOrangtua());
             siswaDTO.setNomerHpOrangtua(siswaEntity.getNomerHpOrangtua());
             siswaDTO.setNomerHp(siswaEntity.getNomerHp());

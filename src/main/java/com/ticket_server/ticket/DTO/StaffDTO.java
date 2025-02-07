@@ -1,7 +1,6 @@
 package com.ticket_server.ticket.DTO;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class StaffDTO {
     private Long id;

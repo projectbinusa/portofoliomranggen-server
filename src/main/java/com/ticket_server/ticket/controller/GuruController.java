@@ -2,62 +2,55 @@ package com.ticket_server.ticket.controller;
 
 import com.ticket_server.ticket.DTO.GuruDTO;
 import com.ticket_server.ticket.service.GuruService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/guru")
+@RequestMapping("/api/admin")
 public class GuruController {
 
-    private static final Logger logger = LoggerFactory.getLogger(GuruController.class);
     private final GuruService guruService;
 
     public GuruController(GuruService guruService) {
         this.guruService = guruService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/guru/all")
     public ResponseEntity<List<GuruDTO>> getAllGuru() {
-        List<GuruDTO> guruList = guruService.getAllGuru();
-        if (guruList.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(guruList);
+        List<GuruDTO> guruDTOList = guruService.getAllGuru();
+        return ResponseEntity.ok(guruDTOList);
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/guru/getAllByAdmin/{idAdmin}")
+    public ResponseEntity<List<GuruDTO>> getAllByAdmin(@PathVariable Long idAdmin) {
+        List<GuruDTO> guruDTOList = guruService.getAllByAdmin(idAdmin);
+        return ResponseEntity.ok(guruDTOList);
+    }
+
+    @GetMapping("/guru/getById/{id}")
     public ResponseEntity<GuruDTO> getGuruById(@PathVariable Long id) {
         GuruDTO guruDTO = guruService.getGuruById(id);
-        return guruDTO != null ? ResponseEntity.ok(guruDTO) : ResponseEntity.notFound().build();
+        return ResponseEntity.ok(guruDTO);
     }
 
-    @PostMapping("/tambah")
-    public ResponseEntity<GuruDTO> tambahGuru(@Valid @RequestBody GuruDTO guruDTO) {
-        logger.info("Request tambah guru diterima: {}", guruDTO);
-
-        GuruDTO savedGuru = guruService.tambahGuruDTO(guruDTO);
-        return new ResponseEntity<>(savedGuru, HttpStatus.CREATED);
+    @PostMapping("/guru/tambah/{idAdmin}")
+    public ResponseEntity<GuruDTO> tambahGuru(@PathVariable Long idAdmin, @RequestBody GuruDTO guruDTO) {
+        GuruDTO newGuru = guruService.tambahGuruDTO(idAdmin, guruDTO);
+        return ResponseEntity.ok(newGuru);
     }
 
-    @PutMapping("/editById/{id}")
-    public ResponseEntity<GuruDTO> editGuru(
-            @PathVariable Long id,
-            @Valid @RequestBody GuruDTO guruDTO) {
-        logger.info("Mengedit guru ID: {}, idAdmin: {}", id, guruDTO.getIdAdmin());
-        GuruDTO updatedGuru = guruService.editGuruDTO(id, guruDTO);
-        return updatedGuru != null ? ResponseEntity.ok(updatedGuru) : ResponseEntity.notFound().build();
+    @PutMapping("/guru/edit/{id}/{idAdmin}")
+    public ResponseEntity<GuruDTO> editGuru(@PathVariable Long id, @PathVariable Long idAdmin, @RequestBody GuruDTO guruDTO) {
+        GuruDTO updatedGuru = guruService.editGuruDTO(id, idAdmin, guruDTO);
+        return ResponseEntity.ok(updatedGuru);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/guru/delete/{id}")
     public ResponseEntity<Void> deleteGuru(@PathVariable Long id) {
-        boolean isDeleted = guruService.deleteGuru(id);
-        return isDeleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        guruService.deleteGuru(id);
+        return ResponseEntity.noContent().build();
     }
 }

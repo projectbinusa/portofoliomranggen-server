@@ -10,23 +10,23 @@ public class Guru {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nama", nullable = false)
+    @Column(name = "nama_guru")
     private String namaGuru;
 
-    @Column(name = "nip", unique = true, nullable = false)
+    @Column(name = "nip")
     private String nip;
 
-    @Column(name = "alamat", nullable = false)
+    @Column(name = "alamat")
     private String alamat;
 
-    @Column(name = "nomer_hp", nullable = false)
+    @Column(name = "nomer_hp")
     private String nomerHp;
 
-    @Column(name = "tahun_diterima", nullable = false)
-    private Integer tahunDiterima;
+    @Column(name = "tahun_diterima")
+    private String tahunDiterima; // Changed to String
 
-    @Column(name = "lama_kerja", nullable = false)
-    private Integer lamaKerja;
+    @Column(name = "lama_kerja")
+    private String lamaKerja; // Changed to String
 
     @ManyToOne
     @JoinColumn(name = "id_admin", nullable = false)
@@ -73,19 +73,19 @@ public class Guru {
         this.nomerHp = nomerHp;
     }
 
-    public Integer getTahunDiterima() {
+    public String getTahunDiterima() {
         return tahunDiterima;
     }
 
-    public void setTahunDiterima(Integer tahunDiterima) {
+    public void setTahunDiterima(String tahunDiterima) {
         this.tahunDiterima = tahunDiterima;
     }
 
-    public Integer getLamaKerja() {
+    public String getLamaKerja() {
         return lamaKerja;
     }
 
-    public void setLamaKerja(Integer lamaKerja) {
+    public void setLamaKerja(String lamaKerja) {
         this.lamaKerja = lamaKerja;
     }
 

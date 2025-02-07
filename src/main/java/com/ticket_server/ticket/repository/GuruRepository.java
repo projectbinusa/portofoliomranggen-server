@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface GuruRepository extends JpaRepository<Guru, Long> {
-    List<Guru> findByAdminId(Long adminId);
+    List<Guru> findByAdminId(Long idAdmin);
 }
