@@ -1,22 +1,52 @@
 package com.ticket_server.ticket.service;
 
-import com.ticket_server.ticket.DTO.PasswordDTO;
 import com.ticket_server.ticket.model.User;
+import com.ticket_server.ticket.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
-public interface UserService {
+@Service
+public class UserService {
+    private final UserRepository userRepository;
 
-    User registerUser(User user);
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-    User getById(Long id);
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
-    List<User> getAll();
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
 
-    User edit(Long id, User user);
+    public User tambahUser(User user) {
+        if (user.getAdminId() == null) {
+            throw new IllegalArgumentException("Admin ID harus dimasukkan");
+        }
+        return userRepository.save(user);
+    }
 
-    User putPasswordUser(PasswordDTO passwordDTO, Long id);
+    public User editUser(Long id, User updatedUser) {
+        return userRepository.findById(id).map(user -> {
+            user.setAdminId(updatedUser.getAdminId());
+            user.setUsername(updatedUser.getUsername());
+            user.setEmail(updatedUser.getEmail());
+            user.setPassword(updatedUser.getPassword());
+            return userRepository.save(user);
+        }).orElse(null);
+    }
 
-    Map<String, Boolean> delete(Long id);
+    public boolean deleteUser(Long id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
