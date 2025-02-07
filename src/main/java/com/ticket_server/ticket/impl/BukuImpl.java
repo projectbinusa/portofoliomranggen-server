@@ -73,7 +73,6 @@ public class BukuImpl implements BukuService {
 
         existingBuku.setAdmin(admin);
         existingBuku.setJudulBuku(bukuDTO.getJudulBuku());
-        existingBuku.setIsbn(bukuDTO.getIsbn());
         existingBuku.setPenerbit(bukuDTO.getPenerbit());
         existingBuku.setPengarang(bukuDTO.getPengarang());
         existingBuku.setTahunTerbit(bukuDTO.getTahunTerbit());
@@ -122,7 +121,7 @@ public class BukuImpl implements BukuService {
     public Buku convertToEntity(BukuDTO bukuDTO) {
         Buku buku = new Buku();
         buku.setJudulBuku(bukuDTO.getJudulBuku());
-        buku.setIsbn(bukuDTO.getIsbn());
+
         buku.setPenerbit(bukuDTO.getPenerbit());
         buku.setPengarang(bukuDTO.getPengarang());
         buku.setTahunTerbit(bukuDTO.getTahunTerbit());
@@ -136,7 +135,7 @@ public class BukuImpl implements BukuService {
         BukuDTO bukuDTO = new BukuDTO();
         bukuDTO.setId(buku.getId());
         bukuDTO.setJudulBuku(buku.getJudulBuku());
-        bukuDTO.setIsbn(buku.getIsbn());
+
         bukuDTO.setPenerbit(buku.getPenerbit());
         bukuDTO.setPengarang(buku.getPengarang());
         bukuDTO.setTahunTerbit(buku.getTahunTerbit());
