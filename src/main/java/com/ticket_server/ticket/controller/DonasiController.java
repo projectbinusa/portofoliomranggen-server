@@ -32,28 +32,20 @@ public class DonasiController {
     public ResponseEntity<DonasiDTO> getDonasiById(@PathVariable Long id) {
         Optional<Donasi> donasi = donasiService.getDonasiById(id);
         return donasi.map(donasiEntity -> {
-            DonasiDTO donasiDTO = new DonasiDTO();
-            donasiDTO.setId(donasiEntity.getId());
-            donasiDTO.setNamaDonasi(donasiEntity.getNamaDonasi());
-            donasiDTO.setNamaDonatur(donasiEntity.getNamaDonatur());
-            donasiDTO.setJumlahDonasi(donasiEntity.getJumlahDonasi());
-            donasiDTO.setTtd(donasiEntity.getTtd());
+            DonasiDTO donasiDTO = new DonasiDTO(donasiEntity);
             return ResponseEntity.ok(donasiDTO);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/donasi/tambah")
     public ResponseEntity<DonasiDTO> tambahDonasi(@RequestBody DonasiDTO donasiDTO) {
-        DonasiDTO savedDonasi = donasiService.tambahDonasiDTO(donasiDTO);
+        DonasiDTO savedDonasi = donasiService.tambahDonasi(donasiDTO);
         return ResponseEntity.ok(savedDonasi);
     }
 
     @PutMapping(value = "/donasi/editById/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DonasiDTO> editDonasi(
-            @PathVariable Long id,
-            @RequestBody DonasiDTO donasiDTO) throws IOException {
-
-        DonasiDTO updatedDonasi = donasiService.editDonasiDTO(id, donasiDTO);
+    public ResponseEntity<DonasiDTO> editDonasi(@PathVariable Long id, @RequestBody DonasiDTO donasiDTO) throws IOException {
+        DonasiDTO updatedDonasi = donasiService.editDonasi(id, donasiDTO);
         return ResponseEntity.ok(updatedDonasi);
     }
 
