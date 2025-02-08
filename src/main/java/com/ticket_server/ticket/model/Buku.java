@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "buku")
 public class Buku {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,10 +27,13 @@ public class Buku {
     @Column(name = "foto_url")
     private String fotoUrl;
 
-    public Buku() {
-    }
+    @Column(name = "id_admin", nullable = false)
+    private Long idAdmin; // Tambahan idAdmin
 
-    public Buku(Long id, String judulBuku, String penerbit, String pengarang, int tahunTerbit, int jumlahHalaman, String fotoUrl) {
+    // Constructor
+    public Buku() {}
+
+    public Buku(Long id, String judulBuku, String penerbit, String pengarang, int tahunTerbit, int jumlahHalaman, String fotoUrl, Long idAdmin) {
         this.id = id;
         this.judulBuku = judulBuku;
         this.penerbit = penerbit;
@@ -39,20 +41,31 @@ public class Buku {
         this.tahunTerbit = tahunTerbit;
         this.jumlahHalaman = jumlahHalaman;
         this.fotoUrl = fotoUrl;
+        this.idAdmin = idAdmin;
     }
 
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
     public String getJudulBuku() { return judulBuku; }
     public void setJudulBuku(String judulBuku) { this.judulBuku = judulBuku; }
+
     public String getPenerbit() { return penerbit; }
     public void setPenerbit(String penerbit) { this.penerbit = penerbit; }
+
     public String getPengarang() { return pengarang; }
     public void setPengarang(String pengarang) { this.pengarang = pengarang; }
+
     public int getTahunTerbit() { return tahunTerbit; }
     public void setTahunTerbit(int tahunTerbit) { this.tahunTerbit = tahunTerbit; }
+
     public int getJumlahHalaman() { return jumlahHalaman; }
     public void setJumlahHalaman(int jumlahHalaman) { this.jumlahHalaman = jumlahHalaman; }
+
     public String getFotoUrl() { return fotoUrl; }
     public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
+
+    public Long getIdAdmin() { return idAdmin; }
+    public void setIdAdmin(Long idAdmin) { this.idAdmin = idAdmin; }
 }

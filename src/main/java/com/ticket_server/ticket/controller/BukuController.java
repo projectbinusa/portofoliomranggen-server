@@ -40,6 +40,7 @@ public class BukuController {
             bukuDTO.setTahunTerbit(bukuEntity.getTahunTerbit());
             bukuDTO.setJumlahHalaman(bukuEntity.getJumlahHalaman());
             bukuDTO.setFotoUrl(bukuEntity.getFotoUrl());
+            bukuDTO.setIdAdmin(bukuEntity.getIdAdmin()); // Tambahan idAdmin
             return ResponseEntity.ok(bukuDTO);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }

@@ -38,6 +38,7 @@ public class BukuImpl implements BukuService {
         buku.setTahunTerbit(bukuDTO.getTahunTerbit());
         buku.setJumlahHalaman(bukuDTO.getJumlahHalaman());
         buku.setFotoUrl(bukuDTO.getFotoUrl());
+        buku.setIdAdmin(bukuDTO.getIdAdmin()); // Tambahan idAdmin
 
         Buku savedBuku = bukuRepository.save(buku);
 
@@ -49,6 +50,7 @@ public class BukuImpl implements BukuService {
         result.setTahunTerbit(savedBuku.getTahunTerbit());
         result.setJumlahHalaman(savedBuku.getJumlahHalaman());
         result.setFotoUrl(savedBuku.getFotoUrl());
+        result.setIdAdmin(savedBuku.getIdAdmin());
         return result;
     }
 
@@ -63,6 +65,7 @@ public class BukuImpl implements BukuService {
         existingBuku.setTahunTerbit(bukuDTO.getTahunTerbit());
         existingBuku.setJumlahHalaman(bukuDTO.getJumlahHalaman());
         existingBuku.setFotoUrl(bukuDTO.getFotoUrl());
+        existingBuku.setIdAdmin(bukuDTO.getIdAdmin()); // Tambahan idAdmin
 
         Buku updatedBuku = bukuRepository.save(existingBuku);
 
@@ -74,6 +77,7 @@ public class BukuImpl implements BukuService {
         result.setTahunTerbit(updatedBuku.getTahunTerbit());
         result.setJumlahHalaman(updatedBuku.getJumlahHalaman());
         result.setFotoUrl(updatedBuku.getFotoUrl());
+        result.setIdAdmin(updatedBuku.getIdAdmin());
         return result;
     }
 
