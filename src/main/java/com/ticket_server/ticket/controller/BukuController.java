@@ -3,9 +3,9 @@ package com.ticket_server.ticket.controller;
 import com.ticket_server.ticket.DTO.BukuDTO;
 import com.ticket_server.ticket.model.Buku;
 import com.ticket_server.ticket.service.BukuService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api")
 public class BukuController {
 
     private final BukuService bukuService;
@@ -28,34 +28,34 @@ public class BukuController {
         return ResponseEntity.ok(bukuList);
     }
 
-    @GetMapping("/buku/getAllByAdmin/{idAdmin}")
-    public ResponseEntity<List<Buku>> getAllByAdmin(@PathVariable Long idAdmin) {
-        List<Buku> bukuList = bukuService.getAllByAdmin(idAdmin);
-        return ResponseEntity.ok(bukuList);
-    }
-
     @GetMapping("/buku/getById/{id}")
-    public ResponseEntity<Buku> getBukuById(@PathVariable Long id) {
+    public ResponseEntity<BukuDTO> getBukuById(@PathVariable Long id) {
         Optional<Buku> buku = bukuService.getBukuById(id);
-        return buku.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return buku.map(bukuEntity -> {
+            BukuDTO bukuDTO = new BukuDTO();
+            bukuDTO.setId(bukuEntity.getId());
+            bukuDTO.setJudulBuku(bukuEntity.getJudulBuku());
+            bukuDTO.setPenerbit(bukuEntity.getPenerbit());
+            bukuDTO.setPengarang(bukuEntity.getPengarang());
+            bukuDTO.setTahunTerbit(bukuEntity.getTahunTerbit());
+            bukuDTO.setJumlahHalaman(bukuEntity.getJumlahHalaman());
+            bukuDTO.setFotoUrl(bukuEntity.getFotoUrl());
+            return ResponseEntity.ok(bukuDTO);
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/buku/tambah/{idAdmin}")
-    public ResponseEntity<BukuDTO> tambahBuku(
-            @PathVariable Long idAdmin,
-            @RequestBody BukuDTO bukuDTO) {
-        BukuDTO savedBuku = bukuService.tambahBukuDTO(idAdmin, bukuDTO);
+    @PostMapping("/buku/tambah")
+    public ResponseEntity<BukuDTO> tambahBuku(@RequestBody BukuDTO bukuDTO) {
+        BukuDTO savedBuku = bukuService.tambahBukuDTO(bukuDTO);
         return ResponseEntity.ok(savedBuku);
     }
 
-    @PutMapping("/buku/edit/{id}/{idAdmin}")
+    @PutMapping(value = "/buku/editById/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BukuDTO> editBuku(
             @PathVariable Long id,
-            @PathVariable Long idAdmin,
-            @RequestParam("buku") String bukuJson,
-            @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+            @RequestBody BukuDTO bukuDTO) throws IOException {
 
-        BukuDTO updatedBuku = bukuService.editBukuDTO(id, idAdmin, bukuJson, file);
+        BukuDTO updatedBuku = bukuService.editBukuDTO(id, bukuDTO);
         return ResponseEntity.ok(updatedBuku);
     }
 
