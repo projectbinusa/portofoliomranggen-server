@@ -1,26 +1,36 @@
 package com.ticket_server.ticket.DTO;
 
+import com.ticket_server.ticket.model.Donasi;
 
 public class DonasiDTO {
     private Long id;
     private String namaDonasi;
     private String namaDonatur;
-    private Double jumlahDonasi;
-    private String ttd;
+    private double jumlahDonasi;
+    private String fotoUrl;
+    private String deskripsi;
 
-    // Getters and Setters
+    public DonasiDTO() {}
+
+    public DonasiDTO(Donasi donasi) {
+        this.id = donasi.getId();
+        this.namaDonasi = donasi.getNamaDonasi();
+        this.namaDonatur = donasi.getNamaDonatur();
+        this.jumlahDonasi = donasi.getJumlahDonasi();
+        this.fotoUrl = donasi.getFotoUrl();
+        this.deskripsi = donasi.getDeskripsi();
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-
     public String getNamaDonasi() { return namaDonasi; }
     public void setNamaDonasi(String namaDonasi) { this.namaDonasi = namaDonasi; }
-
     public String getNamaDonatur() { return namaDonatur; }
     public void setNamaDonatur(String namaDonatur) { this.namaDonatur = namaDonatur; }
-
-    public Double getJumlahDonasi() { return jumlahDonasi; }
-    public void setJumlahDonasi(Double jumlahDonasi) { this.jumlahDonasi = jumlahDonasi; }
-
-    public String getTtd() { return ttd; }
-    public void setTtd(String ttd) { this.ttd = ttd; }
+    public double getJumlahDonasi() { return jumlahDonasi; }
+    public void setJumlahDonasi(double jumlahDonasi) { this.jumlahDonasi = jumlahDonasi; }
+    public String getFotoUrl() { return fotoUrl; }
+    public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
+    public String getDeskripsi() { return deskripsi; }
+    public void setDeskripsi(String deskripsi) { this.deskripsi = deskripsi; }
 }
