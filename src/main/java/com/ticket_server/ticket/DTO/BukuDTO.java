@@ -8,6 +8,7 @@ public class BukuDTO {
     private int tahunTerbit;
     private int jumlahHalaman;
     private String fotoUrl;
+    private Long idAdmin; // Tambahan idAdmin
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -24,4 +25,6 @@ public class BukuDTO {
     public void setJumlahHalaman(int jumlahHalaman) { this.jumlahHalaman = jumlahHalaman; }
     public String getFotoUrl() { return fotoUrl; }
     public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
+    public Long getIdAdmin() { return idAdmin; }
+    public void setIdAdmin(Long idAdmin) { this.idAdmin = idAdmin; }
 }
