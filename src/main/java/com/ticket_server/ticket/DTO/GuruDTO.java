@@ -12,20 +12,20 @@ public class GuruDTO {
     private Long id;
     private Long idAdmin;
     private String namaGuru;
-    private String nip;
+    private Long nip; // Diubah menjadi Long
     private String alamat;
-    private String nomerHp;
-    private Long tahunDiterima;  // Changed to Long
-    private Long lamaKerja;  // Changed to Long
+    private Long nomerHp;  // Diubah menjadi Long
+    private Long tahunDiterima;
+    private Long lamaKerja;
 
-    // Constructor for converting Guru entity to DTO
+    // Constructor untuk konversi dari entity Guru ke DTO
     public GuruDTO(Guru guru) {
         this.id = guru.getId();
         this.idAdmin = guru.getAdmin().getId();
         this.namaGuru = guru.getNamaGuru();
-        this.nip = guru.getNip();
+        this.nip = Long.valueOf(guru.getNip()); // Konversi ke Long
         this.alamat = guru.getAlamat();
-        this.nomerHp = guru.getNomerHp();
+        this.nomerHp = Long.valueOf(guru.getNomerHp()); // Konversi ke Long
         this.tahunDiterima = Long.valueOf(guru.getTahunDiterima());
         this.lamaKerja = Long.valueOf(guru.getLamaKerja());
     }

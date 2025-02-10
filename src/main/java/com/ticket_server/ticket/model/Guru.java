@@ -13,26 +13,26 @@ public class Guru {
     @Column(name = "nama_guru")
     private String namaGuru;
 
-    @Column(name = "nip")
-    private String nip;
+    @Column(name = "nip", unique = true)
+    private Long nip; // Diubah menjadi Long
 
     @Column(name = "alamat")
     private String alamat;
 
     @Column(name = "nomer_hp")
-    private String nomerHp;
+    private Long nomerHp; // Diubah menjadi Long
 
     @Column(name = "tahun_diterima")
-    private String tahunDiterima; // Changed to String
+    private String tahunDiterima;
 
     @Column(name = "lama_kerja")
-    private String lamaKerja; // Changed to String
+    private String lamaKerja;
 
     @ManyToOne
     @JoinColumn(name = "id_admin", nullable = false)
     private Admin admin;
 
-    // Getters and Setters
+    // Getter dan Setter
     public Long getId() {
         return id;
     }
@@ -49,11 +49,11 @@ public class Guru {
         this.namaGuru = namaGuru;
     }
 
-    public String getNip() {
+    public Long getNip() {
         return nip;
     }
 
-    public void setNip(String nip) {
+    public void setNip(Long nip) {
         this.nip = nip;
     }
 
@@ -65,11 +65,11 @@ public class Guru {
         this.alamat = alamat;
     }
 
-    public String getNomerHp() {
+    public Long getNomerHp() {
         return nomerHp;
     }
 
-    public void setNomerHp(String nomerHp) {
+    public void setNomerHp(Long nomerHp) {
         this.nomerHp = nomerHp;
     }
 
