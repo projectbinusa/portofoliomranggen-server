@@ -22,15 +22,13 @@ public class VisiMisiService {
         return visiMisiRepository.findById(id);
     }
 
-    public VisiMisi tambahVisiMisi(VisiMisi visiMisi, Long adminId) {
-        visiMisi.setAdminId(adminId);  // Set the admin ID when adding
+    public VisiMisi tambahVisiMisi(VisiMisi visiMisi) {
         return visiMisiRepository.save(visiMisi);
     }
 
-    public VisiMisi editVisiMisi(Long id, VisiMisi visiMisi, Long adminId) {
+    public VisiMisi editVisiMisi(Long id, VisiMisi visiMisi) {
         if (visiMisiRepository.existsById(id)) {
             visiMisi.setId(id);
-            visiMisi.setAdminId(adminId);  // Set the admin ID when updating
             return visiMisiRepository.save(visiMisi);
         }
         return null;

@@ -28,18 +28,16 @@ public class VisiMisiImpl extends VisiMisiService {
     }
 
     @Override
-    public VisiMisi tambahVisiMisi(VisiMisi visiMisi, Long adminId) {
-        visiMisi.setAdminId(adminId);
+    public VisiMisi tambahVisiMisi(VisiMisi visiMisi) {
         return visiMisiRepository.save(visiMisi);
     }
 
     @Override
-    public VisiMisi editVisiMisi(Long id, VisiMisi visiMisi, Long adminId) {
+    public VisiMisi editVisiMisi(Long id, VisiMisi visiMisi) {
         return visiMisiRepository.findById(id)
                 .map(existingVisiMisi -> {
                     existingVisiMisi.setVisi(visiMisi.getVisi());
                     existingVisiMisi.setMisi(visiMisi.getMisi());
-                    existingVisiMisi.setAdminId(adminId);  // Set the admin ID when updating
                     return visiMisiRepository.save(existingVisiMisi);
                 })
                 .orElseThrow(() -> new RuntimeException("VisiMisi with ID " + id + " not found"));
