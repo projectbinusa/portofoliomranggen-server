@@ -48,7 +48,7 @@ public class SwaggerConfig {
     }
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Belajar Springboot API documentation",
+                "Springboot API documentation",
                 "API documentation",
                 "1.0.0",
                 "",
