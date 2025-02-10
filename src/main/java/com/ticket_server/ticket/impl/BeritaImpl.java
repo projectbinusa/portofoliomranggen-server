@@ -7,9 +7,9 @@ import com.ticket_server.ticket.repository.BeritaRepository;
 import com.ticket_server.ticket.service.BeritaService;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BeritaImpl implements BeritaService {
@@ -20,18 +20,27 @@ public class BeritaImpl implements BeritaService {
     }
 
     @Override
-    public List<Berita> getAllBerita() {
-        return beritaRepository.findAll();
+    public List<Berita> getAllBerita(Long idAdmin) {
+        return beritaRepository.findByIdAdmin(idAdmin);
     }
 
     @Override
-    public Optional<Berita> getBeritaById(Long id) {
-        return beritaRepository.findById(id);
+    public Optional<BeritaDTO> getBeritaById(Long id, Long idAdmin) {
+        return beritaRepository.findByIdAndIdAdmin(id, idAdmin).map(BeritaDTO::new);
     }
 
     @Override
-    public BeritaDTO tambahBeritaDTO(BeritaDTO beritaDTO) {
-        Berita berita = new Berita();
+    public BeritaDTO tambahBeritaDTO(BeritaDTO beritaDTO, Long idAdmin) {
+        Berita berita = new Berita(beritaDTO);
+        berita.setIdAdmin(idAdmin);
+        return new BeritaDTO(beritaRepository.save(berita));
+    }
+
+    @Override
+    public BeritaDTO editBeritaDTO(Long id, BeritaDTO beritaDTO, Long idAdmin) {
+        Berita berita = beritaRepository.findByIdAndIdAdmin(id, idAdmin)
+                .orElseThrow(() -> new NotFoundException("Berita tidak ditemukan"));
+
         berita.setNama(beritaDTO.getNama());
         berita.setPenulis(beritaDTO.getPenulis());
         berita.setDeskripsi(beritaDTO.getDeskripsi());
@@ -39,47 +48,12 @@ public class BeritaImpl implements BeritaService {
         berita.setTanggalTerbit(beritaDTO.getTanggalTerbit());
         berita.setAction(beritaDTO.getAction());
 
-        Berita savedBerita = beritaRepository.save(berita);
-
-        BeritaDTO result = new BeritaDTO();
-        result.setId(savedBerita.getId());
-        result.setNama(savedBerita.getNama());
-        result.setPenulis(savedBerita.getPenulis());
-        result.setDeskripsi(savedBerita.getDeskripsi());
-        result.setFotoUrl(savedBerita.getFotoUrl());
-        result.setTanggalTerbit(savedBerita.getTanggalTerbit());
-        result.setAction(savedBerita.getAction());
-        return result;
+        return new BeritaDTO(beritaRepository.save(berita));
     }
 
     @Override
-    public BeritaDTO editBeritaDTO(Long id, BeritaDTO beritaDTO) {
-        Berita existingBerita = beritaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Berita tidak ditemukan"));
-
-        existingBerita.setNama(beritaDTO.getNama());
-        existingBerita.setPenulis(beritaDTO.getPenulis());
-        existingBerita.setDeskripsi(beritaDTO.getDeskripsi());
-        existingBerita.setFotoUrl(beritaDTO.getFotoUrl());
-        existingBerita.setTanggalTerbit(beritaDTO.getTanggalTerbit());
-        existingBerita.setAction(beritaDTO.getAction());
-
-        Berita updatedBerita = beritaRepository.save(existingBerita);
-
-        BeritaDTO result = new BeritaDTO();
-        result.setId(updatedBerita.getId());
-        result.setNama(updatedBerita.getNama());
-        result.setPenulis(updatedBerita.getPenulis());
-        result.setDeskripsi(updatedBerita.getDeskripsi());
-        result.setFotoUrl(updatedBerita.getFotoUrl());
-        result.setTanggalTerbit(updatedBerita.getTanggalTerbit());
-        result.setAction(updatedBerita.getAction());
-        return result;
-    }
-
-    @Override
-    public void deleteBerita(Long id) {
-        if (!beritaRepository.existsById(id)) {
+    public void deleteBerita(Long id, Long idAdmin) {
+        if (!beritaRepository.existsByIdAndIdAdmin(id, idAdmin)) {
             throw new NotFoundException("Berita tidak ditemukan");
         }
         beritaRepository.deleteById(id);
