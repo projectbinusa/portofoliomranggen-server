@@ -34,9 +34,9 @@ public class VisiMisiController {
     }
 
     @PostMapping("/tambah")
-    public ResponseEntity<VisiMisi> tambahVisiMisi(@RequestBody VisiMisi visiMisi, @RequestParam Long adminId) {
+    public ResponseEntity<VisiMisi> tambahVisiMisi(@RequestBody VisiMisi visiMisi) {
         try {
-            VisiMisi savedVisiMisi = visiMisiService.tambahVisiMisi(visiMisi, adminId);
+            VisiMisi savedVisiMisi = visiMisiService.tambahVisiMisi(visiMisi);
             return ResponseEntity.ok(savedVisiMisi);
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,8 +45,8 @@ public class VisiMisiController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<VisiMisi> editVisiMisi(@PathVariable Long id, @RequestBody VisiMisi visiMisi, @RequestParam Long adminId) {
-        VisiMisi updatedVisiMisi = visiMisiService.editVisiMisi(id, visiMisi, adminId);
+    public ResponseEntity<VisiMisi> editVisiMisi(@PathVariable Long id, @RequestBody VisiMisi visiMisi) {
+        VisiMisi updatedVisiMisi = visiMisiService.editVisiMisi(id, visiMisi);
         return ResponseEntity.ok(updatedVisiMisi);
     }
 
