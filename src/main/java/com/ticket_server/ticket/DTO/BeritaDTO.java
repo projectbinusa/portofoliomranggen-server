@@ -1,5 +1,7 @@
 package com.ticket_server.ticket.DTO;
 
+import com.ticket_server.ticket.model.Berita;
+
 public class BeritaDTO {
     private Long id;
     private String nama;
@@ -8,8 +10,21 @@ public class BeritaDTO {
     private String fotoUrl;
     private String tanggalTerbit;
     private String action;
+    private Long idAdmin;
 
-    // Getters and Setters
+    public BeritaDTO() {}
+
+    public BeritaDTO(Berita berita) {
+        this.id = berita.getId();
+        this.nama = berita.getNama();
+        this.penulis = berita.getPenulis();
+        this.deskripsi = berita.getDeskripsi();
+        this.fotoUrl = berita.getFotoUrl();
+        this.tanggalTerbit = berita.getTanggalTerbit();
+        this.action = berita.getAction();
+        this.idAdmin = berita.getIdAdmin();
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getNama() { return nama; }
@@ -24,4 +39,6 @@ public class BeritaDTO {
     public void setTanggalTerbit(String tanggalTerbit) { this.tanggalTerbit = tanggalTerbit; }
     public String getAction() { return action; }
     public void setAction(String action) { this.action = action; }
+    public Long getIdAdmin() { return idAdmin; }
+    public void setIdAdmin(Long idAdmin) { this.idAdmin = idAdmin; }
 }
