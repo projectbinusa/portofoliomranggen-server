@@ -54,11 +54,11 @@ public class GuruImpl implements GuruService {
         Guru guru = new Guru();
         guru.setAdmin(admin);
         guru.setNamaGuru(guruDTO.getNamaGuru());
-        guru.setNip(guruDTO.getNip());
+        guru.setNip(guruDTO.getNip());  // Tetap sebagai Long
         guru.setAlamat(guruDTO.getAlamat());
-        guru.setNomerHp(guruDTO.getNomerHp());
-        guru.setTahunDiterima(String.valueOf(guruDTO.getTahunDiterima()));  // Changed to Long
-        guru.setLamaKerja(String.valueOf(guruDTO.getLamaKerja()));  // Changed to Long
+        guru.setNomerHp(guruDTO.getNomerHp());  // Tetap sebagai Long
+        guru.setTahunDiterima(String.valueOf(guruDTO.getTahunDiterima()));
+        guru.setLamaKerja(String.valueOf(guruDTO.getLamaKerja()));
 
         Guru savedGuru = guruRepository.save(guru);
         return new GuruDTO(savedGuru);
@@ -74,11 +74,11 @@ public class GuruImpl implements GuruService {
 
         guru.setAdmin(admin);
         guru.setNamaGuru(guruDTO.getNamaGuru());
-        guru.setNip(guruDTO.getNip());
+        guru.setNip(guruDTO.getNip());  // Tetap sebagai Long
         guru.setAlamat(guruDTO.getAlamat());
-        guru.setNomerHp(guruDTO.getNomerHp());
-        guru.setTahunDiterima(String.valueOf(guruDTO.getTahunDiterima()));  // Changed to Long
-        guru.setLamaKerja(String.valueOf(guruDTO.getLamaKerja()));  // Changed to Long
+        guru.setNomerHp(guruDTO.getNomerHp());  // Tetap sebagai Long
+        guru.setTahunDiterima(String.valueOf(guruDTO.getTahunDiterima()));
+        guru.setLamaKerja(String.valueOf(guruDTO.getLamaKerja()));
 
         Guru updatedGuru = guruRepository.save(guru);
         return new GuruDTO(updatedGuru);
