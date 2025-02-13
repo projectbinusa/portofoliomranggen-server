@@ -1,13 +1,10 @@
 package com.ticket_server.ticket.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ticket_server.ticket.DTO.DonasiDTO;
 import com.ticket_server.ticket.model.Donasi;
 import com.ticket_server.ticket.service.DonasiService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,72 +12,43 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/donasi")
 public class DonasiController {
 
     private final DonasiService donasiService;
-    private final ObjectMapper objectMapper;
 
-    public DonasiController(DonasiService donasiService, ObjectMapper objectMapper) {
+    public DonasiController(DonasiService donasiService) {
         this.donasiService = donasiService;
-        this.objectMapper = objectMapper;
     }
 
-    @GetMapping("/donasi/all")
+    @GetMapping("/all")
     public ResponseEntity<List<Donasi>> getAllDonasi() {
-        try {
-            List<Donasi> donasiList = donasiService.getAllDonasi();
-            if (donasiList.isEmpty()) {
-                return ResponseEntity.noContent().build();  // Jika tidak ada data, kembalikan status 204 (No Content)
-            }
-            return ResponseEntity.ok(donasiList);  // Jika ada data, kembalikan status 200 (OK) dengan data
-        } catch (Exception e) {
-            // Log error dan kembalikan status 500 jika ada masalah
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(null);
-        }
+        return ResponseEntity.ok(donasiService.getAllDonasi());
     }
-    @GetMapping("/donasi/getById/{id}")
+
+    @GetMapping("/getAllByAdmin/{idAdmin}")
+    public ResponseEntity<List<Donasi>> getAllByAdmin(@PathVariable Long idAdmin) {
+        return ResponseEntity.ok(donasiService.getAllByAdmin(idAdmin));
+    }
+
+    @GetMapping("/getById/{id}")
     public ResponseEntity<DonasiDTO> getDonasiById(@PathVariable Long id) {
-        Optional<Donasi> donasi = donasiService.getDonasiById(id);
-        return donasi.map(donasiEntity -> ResponseEntity.ok(new DonasiDTO(donasiEntity)))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<DonasiDTO> donasi = donasiService.getDonasiById(id);
+        return donasi.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/donasi/tambah/{idAdmin}")
-    public ResponseEntity<DonasiDTO> tambahDonasi(
-            @PathVariable Long idAdmin,
-            @RequestParam("donasi") String donasiJson,
-            @RequestParam(value = "foto", required = false) MultipartFile foto) throws IOException {
-
-        DonasiDTO donasiDTO = objectMapper.readValue(donasiJson, DonasiDTO.class);
-        donasiDTO.setIdAdmin(idAdmin);
-
-        if (foto != null) {
-            String fotoUrl = donasiService.uploadFoto(foto);
-            donasiDTO.setFotoUrl(fotoUrl);
-        }
-
-        DonasiDTO savedDonasi = donasiService.tambahDonasi(idAdmin, donasiDTO);
-        return ResponseEntity.ok(savedDonasi);
+    @PostMapping("/tambah/{idAdmin}")
+    public ResponseEntity<DonasiDTO> tambahDonasi(@PathVariable Long idAdmin, @RequestBody DonasiDTO donasiDTO) {
+        return ResponseEntity.ok(donasiService.tambahDonasiDTO(donasiDTO, idAdmin));
     }
 
-    @PutMapping("/donasi/editById/{id}/{idAdmin}")
-    public ResponseEntity<DonasiDTO> editDonasi(
-            @PathVariable Long id,
-            @PathVariable Long idAdmin,
-            @RequestParam("donasi") String donasiJson,
-            @RequestParam(value = "foto", required = false) MultipartFile foto) throws IOException {
-
-        DonasiDTO donasiDTO = objectMapper.readValue(donasiJson, DonasiDTO.class);
-        donasiDTO.setIdAdmin(idAdmin);
-
-        DonasiDTO updatedDonasi = donasiService.editDonasi(id, idAdmin, donasiJson, foto);
-        return ResponseEntity.ok(updatedDonasi);
+    @PutMapping("/edit/{id}/{idAdmin}")
+    public ResponseEntity<DonasiDTO> editDonasi(@PathVariable Long id, @PathVariable Long idAdmin, @RequestBody DonasiDTO donasiDTO) throws IOException {
+        return ResponseEntity.ok(donasiService.editDonasiDTO(id, donasiDTO, idAdmin));
     }
 
-    @DeleteMapping("/donasi/delete/{id}")
-    public ResponseEntity<Void> deleteDonasi(@PathVariable Long id) throws IOException {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteDonasi(@PathVariable Long id) {
         donasiService.deleteDonasi(id);
         return ResponseEntity.noContent().build();
     }
