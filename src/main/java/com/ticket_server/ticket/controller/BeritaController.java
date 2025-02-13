@@ -6,7 +6,6 @@ import com.ticket_server.ticket.service.BeritaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,14 +20,19 @@ public class BeritaController {
         this.beritaService = beritaService;
     }
 
-    @GetMapping("/all/{idAdmin}")
-    public ResponseEntity<List<Berita>> getAllBerita(@PathVariable Long idAdmin) {
-        return ResponseEntity.ok(beritaService.getAllBerita(idAdmin));
+    @GetMapping("/all")
+    public ResponseEntity<List<Berita>> getAllBerita() {
+        return ResponseEntity.ok(beritaService.getAllBerita());
     }
 
-    @GetMapping("/{id}/{idAdmin}")
-    public ResponseEntity<BeritaDTO> getBeritaById(@PathVariable Long id, @PathVariable Long idAdmin) {
-        Optional<BeritaDTO> berita = beritaService.getBeritaById(id, idAdmin);
+    @GetMapping("/getAllByAdmin/{idAdmin}")
+    public ResponseEntity<List<Berita>> getAllByAdmin(@PathVariable Long idAdmin) {
+        return ResponseEntity.ok(beritaService.getAllByAdmin(idAdmin));
+    }
+
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<BeritaDTO> getBeritaById(@PathVariable Long id) {
+        Optional<BeritaDTO> berita = beritaService.getBeritaById(id);
         return berita.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -38,13 +42,13 @@ public class BeritaController {
     }
 
     @PutMapping("/edit/{id}/{idAdmin}")
-    public ResponseEntity<BeritaDTO> editBerita(@PathVariable Long id, @PathVariable Long idAdmin, @RequestBody BeritaDTO beritaDTO) throws IOException {
+    public ResponseEntity<BeritaDTO> editBerita(@PathVariable Long id, @PathVariable Long idAdmin, @RequestBody BeritaDTO beritaDTO) {
         return ResponseEntity.ok(beritaService.editBeritaDTO(id, beritaDTO, idAdmin));
     }
 
-    @DeleteMapping("/delete/{id}/{idAdmin}")
-    public ResponseEntity<Void> deleteBerita(@PathVariable Long id, @PathVariable Long idAdmin) {
-        beritaService.deleteBerita(id, idAdmin);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteBerita(@PathVariable Long id) {
+        beritaService.deleteBerita(id);
         return ResponseEntity.noContent().build();
     }
 }
