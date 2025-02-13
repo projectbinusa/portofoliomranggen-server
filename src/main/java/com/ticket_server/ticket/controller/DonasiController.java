@@ -41,29 +41,35 @@ public class DonasiController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/donasi/tambah")
+    @PostMapping("/donasi/tambah/{idAdmin}")
     public ResponseEntity<DonasiDTO> tambahDonasi(
+            @PathVariable Long idAdmin,
             @RequestParam("donasi") String donasiJson,
             @RequestParam(value = "foto", required = false) MultipartFile foto) throws IOException {
 
         DonasiDTO donasiDTO = objectMapper.readValue(donasiJson, DonasiDTO.class);
+        donasiDTO.setIdAdmin(idAdmin);
 
         if (foto != null) {
             String fotoUrl = donasiService.uploadFoto(foto);
             donasiDTO.setFotoUrl(fotoUrl);
         }
 
-        DonasiDTO savedDonasi = donasiService.tambahDonasi(donasiDTO);
+        DonasiDTO savedDonasi = donasiService.tambahDonasi(idAdmin, donasiDTO);
         return ResponseEntity.ok(savedDonasi);
     }
 
-    @PutMapping("/donasi/editById/{id}")
+    @PutMapping("/donasi/editById/{id}/{idAdmin}")
     public ResponseEntity<DonasiDTO> editDonasi(
             @PathVariable Long id,
-            @RequestParam("donasi") Long donasiJson,
+            @PathVariable Long idAdmin,
+            @RequestParam("donasi") String donasiJson,
             @RequestParam(value = "foto", required = false) MultipartFile foto) throws IOException {
 
-        DonasiDTO updatedDonasi = donasiService.editDonasi(id, donasiJson, (DonasiDTO) foto);
+        DonasiDTO donasiDTO = objectMapper.readValue(donasiJson, DonasiDTO.class);
+        donasiDTO.setIdAdmin(idAdmin);
+
+        DonasiDTO updatedDonasi = donasiService.editDonasi(id, idAdmin, donasiJson, foto);
         return ResponseEntity.ok(updatedDonasi);
     }
 

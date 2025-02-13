@@ -43,16 +43,6 @@ public class DonasiImpl implements DonasiService {
     }
 
     @Override
-    public DonasiDTO tambahDonasi(DonasiDTO donasiDTO) {
-        return null;
-    }
-
-    @Override
-    public DonasiDTO editDonasi(Long id, Long idAdmin, DonasiDTO donasiDTO) throws IOException {
-        return null;
-    }
-
-    @Override
     public DonasiDTO tambahDonasi(Long idAdmin, DonasiDTO donasiDTO) {
         Admin admin = adminRepository.findById(idAdmin)
                 .orElseThrow(() -> new NotFoundException("Admin not found"));
