@@ -21,9 +21,9 @@ public class Donasi {
 
     public Donasi() {}
 
-    public Donasi(Long id, Admin IdAdmin, String namaDonasi, String namaDonatur, double jumlahDonasi, String fotoUrl, String deskripsi) {
+    public Donasi(Long id, Admin admin, String namaDonasi, String namaDonatur, double jumlahDonasi, String fotoUrl, String deskripsi) {
         this.id = id;
-        this.admin = IdAdmin;
+        this.admin = admin;
         this.namaDonasi = namaDonasi;
         this.namaDonatur = namaDonatur;
         this.jumlahDonasi = jumlahDonasi;
@@ -33,23 +33,16 @@ public class Donasi {
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-
-    public Admin getAdmin() {return admin;}
-    public void setAdmin(Admin admin) {this.admin = admin;}
-
     public String getNamaDonasi() { return namaDonasi; }
     public void setNamaDonasi(String namaDonasi) { this.namaDonasi = namaDonasi; }
-
     public String getNamaDonatur() { return namaDonatur; }
     public void setNamaDonatur(String namaDonatur) { this.namaDonatur = namaDonatur; }
-
     public double getJumlahDonasi() { return jumlahDonasi; }
     public void setJumlahDonasi(double jumlahDonasi) { this.jumlahDonasi = jumlahDonasi; }
-
     public String getFotoUrl() { return fotoUrl; }
     public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
-
     public String getDeskripsi() { return deskripsi; }
     public void setDeskripsi(String deskripsi) { this.deskripsi = deskripsi; }
-
+    public Admin getAdmin() { return admin; }
+    public void setAdmin(Admin admin) { this.admin = admin; }
 }

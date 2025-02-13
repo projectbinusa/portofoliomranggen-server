@@ -13,13 +13,9 @@ public interface DonasiService {
 
     Optional<Donasi> getDonasiById(Long id);
 
-    DonasiDTO tambahDonasi(DonasiDTO donasiDTO);
-
-    DonasiDTO editDonasi(Long id, Long idAdmin, DonasiDTO donasiDTO) throws IOException;
-
     DonasiDTO tambahDonasi(Long idAdmin, DonasiDTO donasiDTO);
 
-    DonasiDTO editDonasi(Long id, Long idAdmin, String donasiJson, MultipartFile foto) throws IOException;
+    DonasiDTO editDonasi(Long id, Long idAdmin, String donasiJson, MultipartFile file) throws IOException;
 
     String uploadFoto(MultipartFile file) throws IOException;
 
