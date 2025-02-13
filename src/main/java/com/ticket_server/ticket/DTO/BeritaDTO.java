@@ -1,14 +1,13 @@
 package com.ticket_server.ticket.DTO;
 
 import com.ticket_server.ticket.model.Berita;
-import java.util.Date;
 
 public class BeritaDTO {
     private Long id;
     private String nama;
     private String penulis;
     private String deskripsi;
-    private Date tanggalTerbit;
+    private String tanggalTerbit;
     private String action;
     private String fotoUrl;
     private Long idAdmin;
@@ -34,8 +33,8 @@ public class BeritaDTO {
     public void setPenulis(String penulis) { this.penulis = penulis; }
     public String getDeskripsi() { return deskripsi; }
     public void setDeskripsi(String deskripsi) { this.deskripsi = deskripsi; }
-    public Date getTanggalTerbit() { return tanggalTerbit; }
-    public void setTanggalTerbit(Date tanggalTerbit) { this.tanggalTerbit = tanggalTerbit; }
+    public String getTanggalTerbit() { return tanggalTerbit; }
+    public void setTanggalTerbit(String tanggalTerbit) { this.tanggalTerbit = tanggalTerbit; }
     public String getAction() { return action; }
     public void setAction(String action) { this.action = action; }
     public String getFotoUrl() { return fotoUrl; }
