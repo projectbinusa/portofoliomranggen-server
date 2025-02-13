@@ -10,10 +10,18 @@ import java.util.Optional;
 
 public interface DonasiService {
     List<Donasi> getAllDonasi();
+
     Optional<Donasi> getDonasiById(Long id);
+
     DonasiDTO tambahDonasi(DonasiDTO donasiDTO);
-    DonasiDTO editDonasi(Long id, DonasiDTO donasiDTO) throws IOException;
-    void deleteDonasi(Long id) throws IOException;
+
+    DonasiDTO editDonasi(Long id, Long idAdmin, DonasiDTO donasiDTO) throws IOException;
+
+    DonasiDTO tambahDonasi(Long idAdmin, DonasiDTO donasiDTO);
+
+    DonasiDTO editDonasi(Long id, Long idAdmin, String donasiJson, MultipartFile foto) throws IOException;
 
     String uploadFoto(MultipartFile file) throws IOException;
+
+    void deleteDonasi(Long id) throws IOException;
 }
