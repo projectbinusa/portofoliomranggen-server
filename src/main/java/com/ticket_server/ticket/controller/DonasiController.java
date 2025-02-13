@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ticket_server.ticket.DTO.DonasiDTO;
 import com.ticket_server.ticket.model.Donasi;
 import com.ticket_server.ticket.service.DonasiService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,13 +28,18 @@ public class DonasiController {
 
     @GetMapping("/donasi/all")
     public ResponseEntity<List<Donasi>> getAllDonasi() {
-        List<Donasi> donasiList = donasiService.getAllDonasi();
-        if (donasiList.isEmpty()) {
-            return ResponseEntity.noContent().build();
+        try {
+            List<Donasi> donasiList = donasiService.getAllDonasi();
+            if (donasiList.isEmpty()) {
+                return ResponseEntity.noContent().build();  // Jika tidak ada data, kembalikan status 204 (No Content)
+            }
+            return ResponseEntity.ok(donasiList);  // Jika ada data, kembalikan status 200 (OK) dengan data
+        } catch (Exception e) {
+            // Log error dan kembalikan status 500 jika ada masalah
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
         }
-        return ResponseEntity.ok(donasiList);
     }
-
     @GetMapping("/donasi/getById/{id}")
     public ResponseEntity<DonasiDTO> getDonasiById(@PathVariable Long id) {
         Optional<Donasi> donasi = donasiService.getDonasiById(id);
