@@ -3,7 +3,7 @@ package com.ticket_server.ticket.controller;
 import com.ticket_server.ticket.DTO.BukuDTO;
 import com.ticket_server.ticket.model.Buku;
 import com.ticket_server.ticket.service.BukuService;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/buku")
 public class BukuController {
 
     private final BukuService bukuService;
@@ -22,13 +22,15 @@ public class BukuController {
         this.bukuService = bukuService;
     }
 
-    @GetMapping("/buku/all")
+    // 🔹 GET: Ambil semua buku
+    @GetMapping("/all")
     public ResponseEntity<List<Buku>> getAllBuku() {
         List<Buku> bukuList = bukuService.getAllBuku();
         return ResponseEntity.ok(bukuList);
     }
 
-    @GetMapping("/buku/getById/{id}")
+    // 🔹 GET: Ambil buku berdasarkan ID
+    @GetMapping("/getById/{id}")
     public ResponseEntity<BukuDTO> getBukuById(@PathVariable Long id) {
         Optional<Buku> buku = bukuService.getBukuById(id);
         return buku.map(bukuEntity -> {
@@ -40,29 +42,38 @@ public class BukuController {
             bukuDTO.setTahunTerbit(bukuEntity.getTahunTerbit());
             bukuDTO.setJumlahHalaman(bukuEntity.getJumlahHalaman());
             bukuDTO.setFotoUrl(bukuEntity.getFotoUrl());
-            bukuDTO.setIdAdmin(bukuEntity.getIdAdmin()); // Tambahan idAdmin
+            bukuDTO.setIdAdmin(bukuEntity.getIdAdmin()); // ID Admin Ditambahkan
             return ResponseEntity.ok(bukuDTO);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/buku/tambah")
+    // 🔹 POST: Tambah Buku Baru
+    @PostMapping("/tambah")
     public ResponseEntity<BukuDTO> tambahBuku(@RequestBody BukuDTO bukuDTO) {
         BukuDTO savedBuku = bukuService.tambahBukuDTO(bukuDTO);
-        return ResponseEntity.ok(savedBuku);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedBuku);
     }
 
-    @PutMapping(value = "/buku/editById/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BukuDTO> editBuku(
-            @PathVariable Long id,
-            @RequestBody BukuDTO bukuDTO) throws IOException {
-
-        BukuDTO updatedBuku = bukuService.editBukuDTO(id, bukuDTO);
-        return ResponseEntity.ok(updatedBuku);
+    // 🔹 PUT: Update Buku Berdasarkan ID
+    @PutMapping("/editByid/{id}")
+    public ResponseEntity<?> updateBuku(@PathVariable Long id, @RequestBody BukuDTO bukuDTO) {
+        try {
+            BukuDTO updatedBuku = bukuService.editBukuDTO(id, bukuDTO);
+            return ResponseEntity.ok(updatedBuku);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Gagal memperbarui buku: " + e.getMessage());
+        }
     }
 
-    @DeleteMapping("/buku/delete/{id}")
-    public ResponseEntity<Void> deleteBuku(@PathVariable Long id) throws IOException {
-        bukuService.deleteBuku(id);
-        return ResponseEntity.noContent().build();
+
+    // 🔹 DELETE: Hapus Buku Berdasarkan ID
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteBuku(@PathVariable Long id) {
+        try {
+            bukuService.deleteBuku(id);
+            return ResponseEntity.ok("Buku berhasil dihapus");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Gagal menghapus buku: " + e.getMessage());
+        }
     }
 }
