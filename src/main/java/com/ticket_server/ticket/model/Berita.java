@@ -9,11 +9,11 @@ public class Berita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nama;
     private String penulis;
     private String deskripsi;
     private LocalDate tanggalTerbit;
-    private String action;
     private String fotoUrl;
     private Long idAdmin;
 
@@ -29,8 +29,6 @@ public class Berita {
     public void setDeskripsi(String deskripsi) { this.deskripsi = deskripsi; }
     public LocalDate getTanggalTerbit() { return tanggalTerbit; }
     public void setTanggalTerbit(LocalDate tanggalTerbit) { this.tanggalTerbit = tanggalTerbit; }
-    public String getAction() { return action; }
-    public void setAction(String action) { this.action = action; }
     public String getFotoUrl() { return fotoUrl; }
     public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
     public Long getIdAdmin() { return idAdmin; }
