@@ -2,7 +2,8 @@ package com.ticket_server.ticket.repository;
 
 import com.ticket_server.ticket.model.Berita;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
-public interface BeritaRepository extends JpaRepository<Berita, Long> {}
+public interface BeritaRepository extends JpaRepository<Berita, Long> {
+    List<Berita> findByIdAdmin(Long idAdmin);
+}

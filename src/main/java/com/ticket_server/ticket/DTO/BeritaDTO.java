@@ -9,7 +9,6 @@ public class BeritaDTO {
     private String penulis;
     private String deskripsi;
     private LocalDate tanggalTerbit;
-    private String action;
     private String fotoUrl;
     private Long idAdmin;
 
@@ -21,7 +20,6 @@ public class BeritaDTO {
         this.penulis = berita.getPenulis();
         this.deskripsi = berita.getDeskripsi();
         this.tanggalTerbit = berita.getTanggalTerbit();
-        this.action = berita.getAction();
         this.fotoUrl = berita.getFotoUrl();
         this.idAdmin = berita.getIdAdmin();
     }
@@ -36,8 +34,6 @@ public class BeritaDTO {
     public void setDeskripsi(String deskripsi) { this.deskripsi = deskripsi; }
     public LocalDate getTanggalTerbit() { return tanggalTerbit; }
     public void setTanggalTerbit(LocalDate tanggalTerbit) { this.tanggalTerbit = tanggalTerbit; }
-    public String getAction() { return action; }
-    public void setAction(String action) { this.action = action; }
     public String getFotoUrl() { return fotoUrl; }
     public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
     public Long getIdAdmin() { return idAdmin; }
