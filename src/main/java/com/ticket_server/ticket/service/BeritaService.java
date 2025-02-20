@@ -8,8 +8,8 @@ import java.util.Optional;
 public interface BeritaService {
     List<Berita> getAllBerita();
     List<Berita> getAllByAdmin(Long idAdmin);
-    Optional<BeritaDTO> getBeritaById(Long id);
-    BeritaDTO tambahBeritaDTO(BeritaDTO beritaDTO, Long idAdmin);
-    BeritaDTO editBeritaDTO(Long id, BeritaDTO beritaDTO, Long idAdmin);
+    Optional<Berita> getBeritaById(Long id);
+    BeritaDTO tambahBeritaDTO(BeritaDTO beritaDTO);
+    BeritaDTO editBeritaDTO(Long id, BeritaDTO beritaDTO);
     void deleteBerita(Long id);
 }

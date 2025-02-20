@@ -1,13 +1,12 @@
 package com.ticket_server.ticket.impl;
 
 import com.ticket_server.ticket.DTO.BeritaDTO;
+import com.ticket_server.ticket.exception.NotFoundException;
 import com.ticket_server.ticket.model.Berita;
 import com.ticket_server.ticket.repository.BeritaRepository;
 import com.ticket_server.ticket.service.BeritaService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,54 +25,67 @@ public class BeritaImpl implements BeritaService {
 
     @Override
     public List<Berita> getAllByAdmin(Long idAdmin) {
-        return beritaRepository.findByIdAdmin(idAdmin);
+        return List.of();
     }
 
     @Override
-    public Optional<BeritaDTO> getBeritaById(Long id) {
-        return beritaRepository.findById(id).map(BeritaDTO::new);
+    public Optional<Berita> getBeritaById(Long id) {
+        return beritaRepository.findById(id);
     }
 
     @Override
-    @Transactional
-    public BeritaDTO tambahBeritaDTO(BeritaDTO beritaDTO, Long idAdmin) {
+    public BeritaDTO tambahBeritaDTO(BeritaDTO beritaDTO) {
         Berita berita = new Berita();
         berita.setNama(beritaDTO.getNama());
         berita.setPenulis(beritaDTO.getPenulis());
         berita.setDeskripsi(beritaDTO.getDeskripsi());
-
-        // Set tanggal terbit ke hari ini jika null
-        if (beritaDTO.getTanggalTerbit() == null) {
-            berita.setTanggalTerbit(LocalDate.now());
-        } else {
-            berita.setTanggalTerbit(beritaDTO.getTanggalTerbit());
-        }
-
-        berita.setFotoUrl(beritaDTO.getFotoUrl());
-        berita.setIdAdmin(idAdmin);
-
-        return new BeritaDTO(beritaRepository.save(berita));
-    }
-
-    @Override
-    @Transactional
-    public BeritaDTO editBeritaDTO(Long id, BeritaDTO beritaDTO, Long idAdmin) {
-        Berita berita = beritaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Berita tidak ditemukan"));
-
-        berita.setNama(beritaDTO.getNama());
-        berita.setPenulis(beritaDTO.getPenulis());
-        berita.setDeskripsi(beritaDTO.getDeskripsi());
         berita.setTanggalTerbit(beritaDTO.getTanggalTerbit());
-        berita.setFotoUrl(beritaDTO.getFotoUrl());
-        berita.setIdAdmin(idAdmin); // Memastikan idAdmin diperbarui juga
+        berita.setFotoUrl(beritaDTO.getFotoUrl());  // Menerima URL Foto dari FE
+        berita.setIdAdmin(beritaDTO.getIdAdmin()); // Tambahan idAdmin
 
-        return new BeritaDTO(beritaRepository.save(berita));
+        Berita savedBerita = beritaRepository.save(berita);
+
+        BeritaDTO result = new BeritaDTO();
+        result.setId(savedBerita.getId());
+        result.setNama(savedBerita.getNama());
+        result.setPenulis(savedBerita.getPenulis());
+        result.setDeskripsi(savedBerita.getDeskripsi());
+        result.setTanggalTerbit(savedBerita.getTanggalTerbit());
+        result.setFotoUrl(savedBerita.getFotoUrl());
+        result.setIdAdmin(savedBerita.getIdAdmin());
+        return result;
     }
 
     @Override
-    @Transactional
+    public BeritaDTO editBeritaDTO(Long id, BeritaDTO beritaDTO) {
+        Berita existingBerita = beritaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Berita tidak ditemukan"));
+
+        existingBerita.setNama(beritaDTO.getNama());
+        existingBerita.setPenulis(beritaDTO.getPenulis());
+        existingBerita.setDeskripsi(beritaDTO.getDeskripsi());
+        existingBerita.setTanggalTerbit(beritaDTO.getTanggalTerbit());
+        existingBerita.setFotoUrl(beritaDTO.getFotoUrl()); // Pastikan URL foto dapat diperbarui
+        existingBerita.setIdAdmin(beritaDTO.getIdAdmin()); // Tambahan idAdmin
+
+        Berita updatedBerita = beritaRepository.save(existingBerita);
+
+        BeritaDTO result = new BeritaDTO();
+        result.setId(updatedBerita.getId());
+        result.setNama(updatedBerita.getNama());
+        result.setPenulis(updatedBerita.getPenulis());
+        result.setDeskripsi(updatedBerita.getDeskripsi());
+        result.setTanggalTerbit(updatedBerita.getTanggalTerbit());
+        result.setFotoUrl(updatedBerita.getFotoUrl());
+        result.setIdAdmin(updatedBerita.getIdAdmin());
+        return result;
+    }
+
+    @Override
     public void deleteBerita(Long id) {
+        if (!beritaRepository.existsById(id)) {
+            throw new NotFoundException("Berita tidak ditemukan");
+        }
         beritaRepository.deleteById(id);
     }
 }
