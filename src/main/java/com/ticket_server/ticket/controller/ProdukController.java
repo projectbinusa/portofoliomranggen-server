@@ -31,6 +31,7 @@ public class ProdukController {
     @GetMapping("/produk/getById/{id}")
     public ResponseEntity<ProdukDTO> getProdukById(@PathVariable Long id) {
         Optional<Produk> produk = produkService.getProdukById(id);
+
         return produk.map(produkEntity -> {
             ProdukDTO produkDTO = new ProdukDTO();
             produkDTO.setId(produkEntity.getId());
@@ -38,9 +39,18 @@ public class ProdukController {
             produkDTO.setHarga(produkEntity.getHarga());
             produkDTO.setDeskripsi(produkEntity.getDeskripsi());
             produkDTO.setKondisi(produkEntity.getKondisi());
+
+            // Jika fotoUrl null, gunakan placeholder atau URL default
+            String fotoUrl = produkEntity.getFotoUrl() != null && !produkEntity.getFotoUrl().isEmpty()
+                    ? produkEntity.getFotoUrl()
+                    : "https://your-default-image-url.com/default.jpg"; // Ganti dengan URL default
+
+            produkDTO.setFotoUrl(fotoUrl);
+
             return ResponseEntity.ok(produkDTO);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
 
     @PostMapping("/produk/tambah")
