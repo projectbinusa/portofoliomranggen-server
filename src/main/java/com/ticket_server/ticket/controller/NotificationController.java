@@ -4,6 +4,7 @@ import com.ticket_server.ticket.DTO.NotificationDTO;
 import com.ticket_server.ticket.model.Notification;
 import com.ticket_server.ticket.service.NotificationService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,9 +16,11 @@ import java.util.Optional;
 public class NotificationController {
 
     private final NotificationService notificationService;
+    private final SimpMessagingTemplate messagingTemplate; // 🔥 Tambahkan WebSocket template
 
-    public NotificationController(NotificationService notificationService) {
+    public NotificationController(NotificationService notificationService, SimpMessagingTemplate messagingTemplate) {
         this.notificationService = notificationService;
+        this.messagingTemplate = messagingTemplate;
     }
 
     @GetMapping("/all")
@@ -34,7 +37,13 @@ public class NotificationController {
 
     @PostMapping("/add")
     public ResponseEntity<NotificationDTO> addNotification(@RequestBody NotificationDTO notificationDTO) {
-        return ResponseEntity.ok(notificationService.addNotification(notificationDTO));
+        NotificationDTO savedNotification = notificationService.addNotification(notificationDTO);
+
+        // 🔥 Kirim notifikasi ke WebSocket setelah ditambahkan
+        messagingTemplate.convertAndSend("/topic/notifications", savedNotification);
+        System.out.println("📢 Notifikasi dikirim ke WebSocket: " + savedNotification.getMessage());
+
+        return ResponseEntity.ok(savedNotification);
     }
 
     @DeleteMapping("/delete/{id}")
