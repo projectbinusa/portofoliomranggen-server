@@ -1,4 +1,5 @@
 package com.ticket_server.ticket.config;
+
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -12,13 +13,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(@NotNull MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic"); // Enable a simple message broker
-        config.setApplicationDestinationPrefixes("/app"); // Set the application destination prefix
+        config.enableSimpleBroker("/topic"); // Broker untuk kirim notifikasi ke client
+        config.setApplicationDestinationPrefixes("/app"); // Prefix untuk kirim data dari client ke server
     }
-
 
     @Override
     public void registerStompEndpoints(@NotNull StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws").withSockJS(); // Register the "/ws" endpoint with SockJS
+        registry.addEndpoint("/ws")
+                .setAllowedOrigins("http://localhost:5173") // 🔥 Izinkan akses dari frontend
+                .withSockJS(); // Pakai SockJS sebagai fallback
     }
 }
