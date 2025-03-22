@@ -26,6 +26,11 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    @PostMapping("/reset-password")
+    public String resetPassword(@RequestBody String email) {
+        return "Reset link has been sent to: " + email;
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
