@@ -46,9 +46,11 @@ public class StaffController {
 
     @PostMapping("/staff/tambah")
     public ResponseEntity<StaffDTO> tambahStaff(@RequestBody StaffDTO staffDTO) {
+        System.out.println("🚀 Menerima request tambah staff: " + staffDTO);
         StaffDTO savedStaff = staffService.tambahStaffDTO(staffDTO);
         return ResponseEntity.ok(savedStaff);
     }
+
 
     @PutMapping(value = "/staff/editById/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StaffDTO> editStaff(
