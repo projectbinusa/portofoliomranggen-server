@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:5731")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/kategori")
 public class KategoriController {
@@ -22,10 +22,7 @@ public class KategoriController {
     @GetMapping("/all")
     public ResponseEntity<List<KategoriDTO>> getAllKategori() {
         List<KategoriDTO> kategoriList = kategoriService.getAllKategori();
-        if (kategoriList.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(kategoriList);
+        return ResponseEntity.ok(kategoriList); // Tetap kembalikan [], bukan 204
     }
 
     @GetMapping("/{id}")
